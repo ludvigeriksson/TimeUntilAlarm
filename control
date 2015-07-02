@@ -1,0 +1,9 @@
+Package: com.ludvigeriksson.timeuntilalarm
+Name: TimeUntilAlarm
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Ludvig Eriksson
+Author: Ludvig Eriksson
+Section: Tweaks
