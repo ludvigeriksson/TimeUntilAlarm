@@ -1,7 +1,8 @@
 # TimeUntilAlarm
 by Ludvig Eriksson
 
-TimeUntilAlarm is a jailbreak tweak that shows the time remaining until the alarms go off
+TimeUntilAlarm is a jailbreak tweak that shows the time remaining until the alarms go off.
+As of version 1.1.0 it can also show the time until the next active alarm on the lock screen.
 
 It is available for free from [BigBoss](http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=timeuntilalarmDp)
 
