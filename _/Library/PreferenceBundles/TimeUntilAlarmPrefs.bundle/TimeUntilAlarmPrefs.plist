@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Appearance</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUAEnableForActiveAlarmsOnly</string>
+			<key>label</key>
+			<string>Enable for active alarms only</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Show time until next alarm</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUAShowNextActiveAlarmOnLockScreen</string>
+			<key>label</key>
+			<string>On lockscreen</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Developer</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Contact</string>
+			<key>action</key>
+			<string>contact</string>
+			<key>icon</key>
+			<string>MailIcon.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Donate via PayPal</string>
+			<key>action</key>
+			<string>donatePayPal</string>
+			<key>icon</key>
+			<string>PayPalIcon.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Donate Bitcoin</string>
+			<key>action</key>
+			<string>donateBitcoin</string>
+			<key>icon</key>
+			<string>BitcoinIcon.png</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>TimeUntilAlarm</string>
+</dict>
+</plist>

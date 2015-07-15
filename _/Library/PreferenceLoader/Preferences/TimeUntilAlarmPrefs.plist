@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = TimeUntilAlarmPrefs;
+	cell = PSLinkCell;
+	detail = TimeUntilAlarmPrefsListController;
+	icon = TimeUntilAlarmPrefsIcon.png;
+	isController = 1;
+	label = TimeUntilAlarm;
+    };
+}
