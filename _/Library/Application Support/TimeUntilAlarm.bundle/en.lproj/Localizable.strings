@@ -1,0 +1,42 @@
+<plist version="1.0">
+<dict>
+    <key>D</key>
+    <string>d</string>
+    <key>H</key>
+    <string>h</string>
+    <key>M</key>
+    <string>m</string>
+    <key>HR</key>
+    <string>hr</string>
+    <key>HRS</key>
+    <string>hrs</string>
+    <key>MIN</key>
+    <string>min</string>
+    <key>MINS</key>
+    <string>mins</string>
+    <key>DAY</key>
+    <string>day</string>
+    <key>DAYS</key>
+    <string>days</string>
+    <key>HOUR</key>
+    <string>hour</string>
+    <key>HOURS</key>
+    <string>hours</string>
+    <key>MINUTE</key>
+    <string>minute</string>
+    <key>MINUTES</key>
+    <string>minutes</string>
+    <key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
+    <string>Your screen is %d points tall</string>
+    <key>YOUR_SCREEN_IS_X_POINTS_WIDE</key>
+    <string>Your screen is %d points wide</string>
+    <key>DONATE_BITCOIN</key>
+    <string>Donate Bitcoin</string>
+    <key>COPY_TO_CLIPBOARD</key>
+    <string>Copy to clipboard</string>
+    <key>DISMISS</key>
+    <string>Dismiss</string>
+    <key>COPIED</key>
+    <string>Copied!</string>
+</dict>
+</plist>

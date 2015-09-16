@@ -1,1 +1,8 @@
-{ Filter = { Bundles = ( "com.apple.mobiletimer", "com.apple.springboard" ); }; }
+{ 	
+	Filter = { 
+		Bundles = ( 
+			"com.apple.mobiletimer", 
+			"com.apple.springboard",
+		); 
+	}; 
+}

@@ -1,0 +1,42 @@
+<plist version="1.0">
+<dict>
+    <key>D</key>
+    <string>d</string>
+    <key>H</key>
+    <string>h</string>
+    <key>M</key>
+    <string>m</string>
+    <key>HR</key>
+    <string>tim</string>
+    <key>HRS</key>
+    <string>tim</string>
+    <key>MIN</key>
+    <string>min</string>
+    <key>MINS</key>
+    <string>min</string>
+    <key>DAY</key>
+    <string>dag</string>
+    <key>DAYS</key>
+    <string>dagar</string>
+    <key>HOUR</key>
+    <string>timme</string>
+    <key>HOURS</key>
+    <string>timmar</string>
+    <key>MINUTE</key>
+    <string>minut</string>
+    <key>MINUTES</key>
+    <string>minuter</string>
+    <key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
+    <string>Din skärm är %d punkter hög</string>
+    <key>YOUR_SCREEN_IS_X_POINTS_WIDE</key>
+    <string>Din skärm är %d punkter bred</string>
+    <key>DONATE_BITCOIN</key>
+    <string>Donera Bitcoin</string>
+    <key>COPY_TO_CLIPBOARD</key>
+    <string>Kopiera till urklipp</string>
+    <key>DISMISS</key>
+    <string>Avfärda</string>
+    <key>COPIED</key>
+    <string>Kopierad!</string>
+</dict>
+</plist>

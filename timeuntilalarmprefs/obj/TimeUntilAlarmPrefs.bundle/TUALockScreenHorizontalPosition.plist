@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUALockScreenHorizontalPositionValue</string>
+			<key>keyboard</key>
+			<string>numbers</string>
+			<key>label</key>
+			<string>Specify X value</string>
+			<key>default</key>
+			<string>0</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUALockScreenHorizontalPositionStartingPoint</string>
+			<key>validTitles</key>
+			<array>
+				<string>From left</string>
+				<string>From right</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>1</string>
+				<string>2</string>
+			</array>
+			<key>default</key>
+			<string>1</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Lockscreen position</string>
+</dict>
+</plist>

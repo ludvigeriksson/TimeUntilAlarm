@@ -1,0 +1,36 @@
+<plist version="1.0">
+<dict>
+	<key>LOCKSCREEN_POSITION</key>
+	<string>Lockscreen position</string>
+	<key>HORIZONTAL_POSITION</key>
+	<string>Horizontal position</string>
+	<key>LEFT</key>
+	<string>Left</string>
+	<key>RIGHT</key>
+	<string>Right</string>
+	<key>MIDDLE</key>
+	<string>Middle</string>
+	<key>CUSTOM</key>
+	<string>Custom</string>
+	<key>VERTICAL_POSITION</key>
+	<string>Vertical position</string>
+	<key>TOP</key>
+	<string>Top</string>
+	<key>UNDER_CLOCK</key>
+	<string>Under clock</string>
+	<key>BOTTOM</key>
+	<string>Bottom</string>
+	<key>SPECIFY_X_VALUE</key>
+	<string>Specify X value:</string>
+	<key>SPECIFY_Y_VALUE</key>
+	<string>Specify Y value:</string>
+	<key>FROM_LEFT</key>
+	<string>From left</string>
+	<key>FROM_RIGHT</key>
+	<string>From right</string>
+	<key>FROM_TOP</key>
+	<string>From top</string>
+	<key>FROM_BOTTOM</key>
+	<string>From bottom</string>
+</dict>
+</plist>

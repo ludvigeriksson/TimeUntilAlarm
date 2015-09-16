@@ -4,12 +4,33 @@
 <dict>
 	<key>items</key>
 	<array>
+
+		<!-- CLOCK GROUP -->
+
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Appearance</string>
+			<string>CLOCK_APP</string>
 		</dict>
+
+		<!-- Enable -->
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUAEnableInClockApp</string>
+			<key>label</key>
+			<string>ENABLE</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Hide for inactive alarms (Previously 'Enable for active alarms only') -->
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -20,16 +41,129 @@
 			<key>key</key>
 			<string>TUAEnableForActiveAlarmsOnly</string>
 			<key>label</key>
-			<string>Enable for active alarms only</string>
+			<string>HIDE_FOR_INACTIVE_ALARMS</string>
 			<key>PostNotification</key>
 			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
 		</dict>
+
+		<!-- Font size -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUAClockAppFontSize</string>
+			<key>label</key>
+			<string>FONT_SIZE</string>
+			<key>validTitles</key>
+			<array>
+				<string>11</string>
+				<string>12</string>
+				<string>13</string>
+				<string>14</string>
+				<string>15</string>
+				<string>16</string>
+				<string>17</string>
+				<string>18</string>
+				<string>19</string>
+				<string>20</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>11</string>
+				<string>12</string>
+				<string>13</string>
+				<string>14</string>
+				<string>15</string>
+				<string>16</string>
+				<string>17</string>
+				<string>18</string>
+				<string>19</string>
+				<string>20</string>
+			</array>
+			<key>default</key>
+			<string>17</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Time format -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUAClockAppTimeFormat</string>
+			<key>label</key>
+			<string>TIME_FORMAT</string>
+			<key>validTitles</key>
+			<array>
+				<string>9H_41M</string>
+				<string>9HRS_41MINS</string>
+				<string>9_HOURS_41_MINUTES</string>
+				<string>9:41</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+			</array>
+			<key>default</key>
+			<string>0</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Position -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUAClockAppPosition</string>
+			<key>label</key>
+			<string>POSITION</string>
+			<key>validTitles</key>
+			<array>
+				<string>ABOVE_SWITCH</string>
+				<string>UNDER_SWITCH</string>
+				<string>AFTER_TEXT</string>
+				<string>REPLACE_TEXT</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+			</array>
+			<key>default</key>
+			<string>0</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- LOCK SCREEN GROUP -->
+
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Show time until next alarm</string>
+			<string>LOCK_SCREEN</string>
 		</dict>
+
+		<!-- Enable -->
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -40,41 +174,198 @@
 			<key>key</key>
 			<string>TUAShowNextActiveAlarmOnLockScreen</string>
 			<key>label</key>
-			<string>On lockscreen</string>
+			<string>ENABLE</string>
 			<key>PostNotification</key>
 			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
 		</dict>
+
+		<!-- Font size -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUALockScreenFontSize</string>
+			<key>label</key>
+			<string>FONT_SIZE</string>
+			<key>validTitles</key>
+			<array>
+				<string>11</string>
+				<string>12</string>
+				<string>13</string>
+				<string>14</string>
+				<string>15</string>
+				<string>16</string>
+				<string>17</string>
+				<string>18</string>
+				<string>19</string>
+				<string>20</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>11</string>
+				<string>12</string>
+				<string>13</string>
+				<string>14</string>
+				<string>15</string>
+				<string>16</string>
+				<string>17</string>
+				<string>18</string>
+				<string>19</string>
+				<string>20</string>
+			</array>
+			<key>default</key>
+			<string>17</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Time format -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUALockScreenTimeFormat</string>
+			<key>label</key>
+			<string>TIME_FORMAT</string>
+			<key>validTitles</key>
+			<array>
+				<string>9H_41M</string>
+				<string>9HRS_41MINS</string>
+				<string>9_HOURS_41_MINUTES</string>
+				<string>9:41</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+			</array>
+			<key>default</key>
+			<string>0</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Position -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>POSITION</string>
+			<key>detail</key>
+			<string>TUALockScreenPositionListController</string>
+		</dict>
+
+		<!-- Hide if -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>TUAHideOnLockScreenIf</string>
+			<key>label</key>
+			<string>HIDE_IF</string>
+			<key>validTitles</key>
+			<array>
+				<string>NEVER</string>
+				<string>> 4h</string>
+				<string>> 8h</string>
+				<string>> 12h</string>
+				<string>> 24h</string>
+				<string>> 48h</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>4</string>
+				<string>8</string>
+				<string>12</string>
+				<string>24</string>
+				<string>48</string>
+			</array>
+			<key>default</key>
+			<string>24</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- Time type -->
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUALockScreenTimeType</string>
+			<key>validTitles</key>
+			<array>
+				<string>TIME_UNTIL_ALARM</string>
+				<string>ALARM_TIME</string>
+				<string>BOTH</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+			</array>
+			<key>default</key>
+			<string>0</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
+		<!-- DEVELOPER GROUP -->
+
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>Developer</string>
+			<string>DEVELOPER</string>
 		</dict>
+
+		<!-- Contact -->
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Contact</string>
+			<string>CONTACT</string>
 			<key>action</key>
 			<string>contact</string>
 			<key>icon</key>
 			<string>MailIcon.png</string>
 		</dict>
+
+		<!-- Donate via PayPal -->
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Donate via PayPal</string>
+			<string>DONATE_PAYPAL</string>
 			<key>action</key>
 			<string>donatePayPal</string>
 			<key>icon</key>
 			<string>PayPalIcon.png</string>
 		</dict>
+
+		<!-- Donate Bitcoin -->
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Donate Bitcoin</string>
+			<string>DONATE_BITCOIN</string>
 			<key>action</key>
 			<string>donateBitcoin</string>
 			<key>icon</key>

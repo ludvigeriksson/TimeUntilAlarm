@@ -1,97 +1,226 @@
-static NSString *stringFromDifference(int difference);
+static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/TimeUntilAlarm.bundle"];
+#define LOCALIZED(str) [tweakBundle localizedStringForKey:str value:@"" table:nil]
+
+static NSString *stringFromDate(NSDate *date);
+static NSString *stringFromDifference(int difference, int format);
 static int getCurrentMinute();
 
 static int lastReloadMinute = 0;
 static NSTimer *timer = nil;
 static NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 
-// Preferences
+typedef NS_ENUM(int, ClockAppPosition) {
+	ClockAppPositionAboveSwitch = 0,
+	ClockAppPositionUnderSwitch = 1,
+	ClockAppPositionAfterText = 2,
+	ClockAppPositionReplaceText = 3,
+};
+
+// Clock app properties
+static BOOL enableInClockApp = YES;
 static BOOL enableForActiveAlarmsOnly = NO;
-static BOOL showNextActiveAlarmOnLockScreen = NO;
+static int clockAppFontSize = 17;
+static int clockAppTimeFormat = 0;
+static int clockAppPosition = ClockAppPositionAboveSwitch;
+static const int clockAppLabelTag = 50;
+
+typedef NS_ENUM(int, TimeType) {
+	TimeTypeTimeUntilAlarm = 0,
+	TimeTypeAlarmTime = 1,
+	TimeTypeBoth = 2,
+};
 
 // Lockscreen properties
-static NSDate *nextActiveAlarmFireDate = nil;
-static int nextAlarmOnLockScreenViewSpacing = 8;
-static int nextAlarmOnLockScreenViewTag = 50;
-static int nextAlarmOnLockScreenLabelTag = 1;
-static int nextAlarmOnLockScreenImageViewTag = 2;
+static BOOL showNextActiveAlarmOnLockScreen = NO;
+static int lockScreenFontSize = 17;
+static int lockScreenTimeFormat = 0;
+static int hideOnLockScreenIf = 24; // Default to 24 hours
+static int lockScreenTimeType = TimeTypeTimeUntilAlarm;
+
+static const int nextAlarmOnLockScreenViewSpacing = 8;
+static const int nextAlarmOnLockScreenTopBottomSpacing = 20;
+static const int nextAlarmOnLockScreenViewTag = 50;
+static const int nextAlarmOnLockScreenLabelTag = 1;
+static const int nextAlarmOnLockScreenImageViewTag = 2;
+static int lockScreenImageViewDefaultSize = 20;
 static BOOL snoozedAlarmCellIsVisible = NO;
+static NSDate *nextActiveAlarmFireDate = nil;
+
+// Lockscreen positioning
+typedef NS_ENUM(int, HorizontalPosition) {
+    HorizontalPositionCustom = 0,
+    HorizontalPositionLeft = 1,
+    HorizontalPositionMiddle = 2,
+    HorizontalPositionRight = 3,
+};
+typedef NS_ENUM(int, VerticalPosition) {
+    VerticalPositionCustom = 0,
+    VerticalPositionTop = 1,
+    VerticalPositionBelowClock = 2,
+    VerticalPositionBottom = 3,
+};
+typedef NS_ENUM(int, HorizontalStartingPoint) {
+    HorizontalStartingPointLeft = 1,
+    HorizontalStartingPointRight = 2,
+};
+typedef NS_ENUM(int, VerticalStartingPoint) {
+    VerticalStartingPointTop = 1,
+    VerticalStartingPointBottom = 2,
+};
+
+static int lockScreenHorizontalPosition = HorizontalPositionMiddle;
+static int lockScreenVerticalPosition = VerticalPositionBelowClock;
+static int lockScreenHorizontalPositionValue = 0;
+static int lockScreenVerticalPositionValue = 0;
+static int lockScreenHorizontalPositionStartingPoint = HorizontalStartingPointLeft;
+static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 #import <SpringBoard/SBFLockScreenDateView.h>
 #import <SpringBoard/SBLockScreenViewController.h>
+
+
+
+
+
+// LOCKSCREEN
 
 %hook SBLockScreenViewController
 
 - (void)startLockScreenFadeInAnimationForSource:(int)arg1 { 
 	%orig; 
 
-	id lockScreenView = self.lockScreenView;
+	UIView *lockScreenView = (UIView *)self.lockScreenView;
 	SBFLockScreenDateView *dateView = [lockScreenView valueForKey:@"dateView"];
 
 	UIView *nextAlarmView = [dateView viewWithTag:nextAlarmOnLockScreenViewTag];
-	UILabel *nextAlarmLabel;
-	UIImageView *nextAlarmImageView;
-	if (nextAlarmView == nil) {
-		nextAlarmView = [[UIView alloc] init];
-		nextAlarmView.tag = nextAlarmOnLockScreenViewTag;
 
-		// Get image
-		NSString *bundlePath = @"/Library/MobileSubstrate/DynamicLibraries/TimeUntilAlarmBundle.bundle";
-        NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
-        NSString *imagePath = [bundle pathForResource:@"TimeUntilAlarmLockScreenIcon" ofType:@"png"];
-        UIImage *image = [[UIImage imageWithContentsOfFile:imagePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	if (showNextActiveAlarmOnLockScreen) {
+		UILabel *nextAlarmLabel;
+		UIImageView *nextAlarmImageView;
+		if (nextAlarmView == nil) {
 
-        // Add image view
-		nextAlarmImageView = [[UIImageView alloc] initWithImage:image];
-		nextAlarmImageView.tag = nextAlarmOnLockScreenImageViewTag;
-        [nextAlarmView addSubview:nextAlarmImageView];
+			// Create next alarm view
+			nextAlarmView = [[UIView alloc] init];
+			nextAlarmView.tag = nextAlarmOnLockScreenViewTag;
 
-        // Add label
-		nextAlarmLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		nextAlarmLabel.tag = nextAlarmOnLockScreenLabelTag;
-		[nextAlarmView addSubview:nextAlarmLabel];
+			// Get image
+			NSString *bundlePath = @"/Library/MobileSubstrate/DynamicLibraries/TimeUntilAlarmBundle.bundle";
+			NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
+			NSString *imagePath = [bundle pathForResource:@"TimeUntilAlarmLockScreenIcon" ofType:@"png"];
+			UIImage *image = [[UIImage imageWithContentsOfFile:imagePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-		// Add complete view to dateView
-		[dateView addSubview:nextAlarmView];
-	} else {
-		nextAlarmLabel = (UILabel *)[nextAlarmView viewWithTag:nextAlarmOnLockScreenLabelTag];
-		nextAlarmImageView = (UIImageView *)[nextAlarmView viewWithTag:nextAlarmOnLockScreenImageViewTag];
-	}
+        	// Add image view
+			nextAlarmImageView = [[UIImageView alloc] initWithImage:image];
+			nextAlarmImageView.tag = nextAlarmOnLockScreenImageViewTag;
+			lockScreenImageViewDefaultSize = nextAlarmImageView.frame.size.height;
+			[nextAlarmView addSubview:nextAlarmImageView];
 
-	if (showNextActiveAlarmOnLockScreen && !snoozedAlarmCellIsVisible) {
-		if (nextActiveAlarmFireDate != nil) {
+        	// Add label
+			nextAlarmLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+			nextAlarmLabel.tag = nextAlarmOnLockScreenLabelTag;
+			[nextAlarmView addSubview:nextAlarmLabel];
+
+			// Add complete view to view
+			[dateView addSubview:nextAlarmView];
+		} else {
+			nextAlarmLabel = (UILabel *)[nextAlarmView viewWithTag:nextAlarmOnLockScreenLabelTag];
+			nextAlarmImageView = (UIImageView *)[nextAlarmView viewWithTag:nextAlarmOnLockScreenImageViewTag];
+		}
+
+		int nextActiveAlarmDifference = [nextActiveAlarmFireDate timeIntervalSinceNow];
+		int maximumDifference = hideOnLockScreenIf * 60 * 60;
+		BOOL hide = (nextActiveAlarmDifference > maximumDifference) && (hideOnLockScreenIf != 0);
+
+		if (!snoozedAlarmCellIsVisible && nextActiveAlarmFireDate != nil && !hide) {
 			nextAlarmView.hidden = NO;
 
-			int nextActiveAlarmDifference = [nextActiveAlarmFireDate timeIntervalSinceNow];
-			nextAlarmLabel.text = stringFromDifference(nextActiveAlarmDifference);
+			nextAlarmLabel.text = nil;
+			if (lockScreenTimeType == TimeTypeTimeUntilAlarm) {
+				nextAlarmLabel.text = stringFromDifference(nextActiveAlarmDifference, lockScreenTimeFormat);
+			} else if (lockScreenTimeType == TimeTypeAlarmTime) {
+				nextAlarmLabel.text = stringFromDate(nextActiveAlarmFireDate);
+			} else if (lockScreenTimeType == TimeTypeBoth) {
+				NSString *alarmTime = stringFromDate(nextActiveAlarmFireDate);
+				NSString *timeUntilAlarm = stringFromDifference(nextActiveAlarmDifference, lockScreenTimeFormat);
+				nextAlarmLabel.text = [alarmTime stringByAppendingFormat:@" (%@)", timeUntilAlarm];
+			}
 			nextAlarmLabel.textColor = dateView.textColor;
+			nextAlarmLabel.font = [UIFont systemFontOfSize:lockScreenFontSize];
 			nextAlarmImageView.tintColor = dateView.textColor;
 			[nextAlarmLabel sizeToFit];
 
-			UIView *dateLabel = MSHookIvar<UIView *>(dateView, "_dateLabel");
-
-			int imageSpace = 8;
-
-			CGRect frame = nextAlarmLabel.frame;
-			frame.origin.x = nextAlarmImageView.bounds.size.width + imageSpace;
-			nextAlarmLabel.frame = frame;
-
-			frame = nextAlarmImageView.frame;
-			frame.origin.y = nextAlarmLabel.frame.origin.y + nextAlarmLabel.frame.size.height / 2 - nextAlarmImageView.frame.size.height / 2;
+			CGRect frame = nextAlarmImageView.frame;
+			frame.size.width = lockScreenImageViewDefaultSize + (lockScreenFontSize - 17);
+			frame.size.height = frame.size.width;
+			frame.origin.y = nextAlarmLabel.frame.origin.y + nextAlarmLabel.frame.size.height / 2 - frame.size.height / 2;
 			nextAlarmImageView.frame = frame;
 
+			frame = nextAlarmLabel.frame;
+			frame.origin.x = nextAlarmImageView.bounds.size.width + nextAlarmImageView.bounds.size.width / 2;
+			nextAlarmLabel.frame = frame;
+
 			frame = nextAlarmView.frame;
-			frame.origin.x = CGRectGetMidX(dateView.bounds) - nextAlarmLabel.bounds.size.width / 2 - nextAlarmImageView.bounds.size.width / 2 - imageSpace / 2;
-			frame.origin.y = CGRectGetMaxY(dateLabel.frame) + nextAlarmOnLockScreenViewSpacing;
+			frame.size.width = CGRectGetMaxX(nextAlarmLabel.frame);
+			frame.size.height = nextAlarmLabel.frame.size.height;
 			nextAlarmView.frame = frame;
+
+			nextAlarmView.frame = [self frameForAlarmView:nextAlarmView];
 		} else {
 			nextAlarmView.hidden = YES;
 		}
-
 	} else {
-		nextAlarmView.hidden = YES;
+		if (nextAlarmView != nil) {
+			[nextAlarmView removeFromSuperview];
+			nextAlarmView = nil;
+		}
+	}
+}
+
+%new
+- (CGRect)frameForAlarmView:(UIView *)view {
+	CGRect frame = view.frame;
+
+	UIView *lockScreenView = (UIView *)self.lockScreenView;
+	CGFloat fullscreenWidth = lockScreenView.frame.size.width;
+	CGFloat fullscreenHeight = lockScreenView.frame.size.height;
+	
+	if (lockScreenHorizontalPosition == HorizontalPositionLeft) {
+		frame.origin.x = nextAlarmOnLockScreenViewSpacing;
+	} else if (lockScreenHorizontalPosition == HorizontalPositionMiddle) {
+		frame.origin.x = fullscreenWidth / 2 - frame.size.width / 2;
+	} else if (lockScreenHorizontalPosition == HorizontalPositionRight) {
+		frame.origin.x = fullscreenWidth - frame.size.width - nextAlarmOnLockScreenViewSpacing;
+	} else if (lockScreenHorizontalPosition == HorizontalPositionCustom) {
+		if (lockScreenHorizontalPositionStartingPoint == HorizontalStartingPointLeft) {
+			frame.origin.x = lockScreenHorizontalPositionValue;
+		} else if (lockScreenHorizontalPositionStartingPoint == HorizontalStartingPointRight) {
+			frame.origin.x = fullscreenWidth - frame.size.width - lockScreenHorizontalPositionValue;
+		}
 	}
 
+	SBFLockScreenDateView *dateView = [lockScreenView valueForKey:@"dateView"];
+
+	if (lockScreenVerticalPosition == VerticalPositionTop) {
+		frame.origin.y = nextAlarmOnLockScreenTopBottomSpacing - dateView.frame.origin.y;
+	} else if (lockScreenVerticalPosition == VerticalPositionBelowClock) {
+		UIView *dateLabel = MSHookIvar<UIView *>(dateView, "_dateLabel");
+		frame.origin.y = CGRectGetMaxY(dateLabel.frame) + nextAlarmOnLockScreenViewSpacing;
+		if ([self isShowingMediaControls]) {
+			frame.origin.y -= 8;
+		} else if ([self lockScreenIsShowingBulletins]) {
+			frame.origin.y -= 4;
+		}
+	} else if (lockScreenVerticalPosition == VerticalPositionBottom) {
+		frame.origin.y = fullscreenHeight - frame.size.height - nextAlarmOnLockScreenTopBottomSpacing - dateView.frame.origin.y;
+	} else if (lockScreenVerticalPosition == VerticalPositionCustom) {
+		if (lockScreenVerticalPositionStartingPoint == VerticalStartingPointTop) {
+			frame.origin.y = lockScreenVerticalPositionValue - dateView.frame.origin.y;
+		} else if (lockScreenVerticalPositionStartingPoint == VerticalStartingPointBottom) {
+			frame.origin.y = fullscreenHeight - frame.size.height - lockScreenVerticalPositionValue - dateView.frame.origin.y;
+		}
+	}
+
+	return frame;
 }
 
 %end
@@ -105,7 +234,6 @@ static BOOL snoozedAlarmCellIsVisible = NO;
 }
 
 %end
-
 
 #import <MobileTimer/UIConcreteLocalNotification.h>
 
@@ -144,6 +272,12 @@ static BOOL snoozedAlarmCellIsVisible = NO;
 
 
 
+// CLOCK APP
+
+@interface AlarmView : UIView
+- (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3;
+@end
+
 #import <MobileTimer/Alarm.h>
 
 %hook AlarmTableViewCell
@@ -151,74 +285,104 @@ static BOOL snoozedAlarmCellIsVisible = NO;
 
 - (void)refreshUI:(id)ui animated:(BOOL)animated { 
 
-	UIView *alarmView = MSHookIvar<UIView *>(self, "_alarmView");
+	AlarmView *alarmView = MSHookIvar<AlarmView *>(self, "_alarmView");
+	UILabel *label = (UILabel *)[alarmView viewWithTag:clockAppLabelTag];
 
-	// Get the time of the alarm as seconds into the day
-	int alarmHours = [[ui valueForKey:@"hour"] intValue];
-	int alarmMinutes = [[ui valueForKey:@"minute"] intValue];
-	int daySetting = [[ui valueForKey:@"daySetting"] intValue];
+	if (enableInClockApp) {
+		label.hidden = NO;
 
-	Alarm *alarm = [[Alarm alloc] init];
-	alarm.daySetting = daySetting;
-	alarm.hour = alarmHours;
-	alarm.minute = alarmMinutes;
+		Alarm *alarm = (Alarm *)ui;
+		NSDate *nextFireDate = [alarm nextFireDate];
+		NSTimeInterval difference = [nextFireDate timeIntervalSinceNow];
 
-	NSDate *nextFireDate = [alarm nextFireDate];
-	NSTimeInterval difference = [nextFireDate timeIntervalSinceNow];
+		if (label == nil) {
+			// Create the label if it doesn't already exists (cells gets reused)
+			label = [[UILabel alloc] init];
+			label.tag = clockAppLabelTag;
+			[alarmView addSubview:label];
+		}
 
-	// Get the label to present the time remaining
-	UILabel *label = (UILabel *)[alarmView viewWithTag:50];
-	if (label == nil) {
-		// Create the label if it doesn't already exists (cells gets reused)
-		label = [[UILabel alloc] init];
-		label.tag = 50;
-		label.font = [UIFont systemFontOfSize:17];
-		[alarmView addSubview:label];
+		// Set the label text to the time remaining
+		label.text = stringFromDifference(difference, clockAppTimeFormat);
+		label.font = [UIFont systemFontOfSize:clockAppFontSize];
+		[label sizeToFit];
+
+	} else if (label != nil) {
+		// Hide if disabled in clock app
+		label.hidden = YES;
 	}
-
-	// Set the label text to the time remaining
-	label.text = stringFromDifference(difference);
-	[label sizeToFit];
-
-	// Positioning occurs in layoutSubviews in AlarmView
 
 	%orig; 
 }
 
 %end
 
-@interface AlarmView : UIView
-@end
-
 %hook AlarmView
-// Used to position the time left label
 
+// If the time should be placed in the existing labels, it's set here.
+- (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3 { 
+
+	if (enableInClockApp && (clockAppPosition == ClockAppPositionReplaceText || clockAppPosition == ClockAppPositionAfterText)) {
+		UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
+		if (label != nil) {
+			if (clockAppPosition == ClockAppPositionReplaceText) {
+				arg1 = label.text;
+			} else if (clockAppPosition == ClockAppPositionAfterText) {
+				arg1 = [arg1 stringByAppendingFormat:@", %@", label.text];
+			}
+		}
+	}
+
+	%orig; 
+}
+
+// Used to position the time left label
 - (void)layoutSubviews {
 	%orig;
 
-	// Get the label to present the time remaining
-	UILabel *label = (UILabel *)[self viewWithTag:50];
-	if (label != nil) {
-		UIView *enabledSwitch = MSHookIvar<UIView *>(self, "_enabledSwitch");
+	if (enableInClockApp) {
+		// Get the label to present the time remaining
+		UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
+		if (label != nil) {
+			UIView *enabledSwitch = MSHookIvar<UIView *>(self, "_enabledSwitch");
 
-		BOOL showLabel = YES;
-		if (enableForActiveAlarmsOnly) {
-			showLabel = [[enabledSwitch valueForKey:@"isOn"] boolValue];
-		}
+			BOOL showLabel = YES;
+			if (enableForActiveAlarmsOnly) {
+				showLabel = [[enabledSwitch valueForKey:@"isOn"] boolValue];
+			}
 
-		if (showLabel) {
-			label.hidden = NO;
+			if (showLabel) {
+				label.hidden = NO;
 
-			// Set the color to match the time label's color
-			UIView *timeLabel = MSHookIvar<UIView *>(self, "_timeLabel");
-			label.textColor = (UIColor *)[timeLabel valueForKey:@"textColor"];
+				// Set the color to match the time label's color
+				UIView *timeLabel = MSHookIvar<UIView *>(self, "_timeLabel");
+				label.textColor = (UIColor *)[timeLabel valueForKey:@"textColor"];
 
-			// Position the label above the switch
-			CGFloat x = CGRectGetMaxX(enabledSwitch.frame) - label.bounds.size.width;
-			CGFloat y = enabledSwitch.frame.origin.y / 2 - label.bounds.size.height / 2;
-			label.frame = CGRectMake(x, y, label.bounds.size.width, label.bounds.size.height);
-		} else {
-			label.hidden = YES;
+				// Position the label
+				CGRect frame = label.frame;
+
+				switch (clockAppPosition) {
+					case ClockAppPositionAboveSwitch:
+						frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - label.bounds.size.width;
+						frame.origin.y = enabledSwitch.frame.origin.y / 2 - label.bounds.size.height / 2;
+						break;
+					case ClockAppPositionUnderSwitch:
+						frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - label.bounds.size.width;
+						frame.origin.y = (CGRectGetMaxY(self.frame) + CGRectGetMaxY(enabledSwitch.frame)) / 2 - label.bounds.size.height / 2;
+						break;
+					case ClockAppPositionAfterText:
+					case ClockAppPositionReplaceText:
+						// The time is placed in the existing text label instead
+						// This occurs in setName:andRepeatText:textColor: above
+						frame = CGRectZero;
+						break;
+					default:
+						break;
+				}
+				label.frame = frame;
+			} else {
+				label.hidden = YES;
+			}
 		}
 	}
 }
@@ -248,23 +412,27 @@ static BOOL snoozedAlarmCellIsVisible = NO;
 - (void)viewWillAppear:(BOOL)animated {
 	%orig;
 
-	lastReloadMinute = getCurrentMinute();
+	if (enableInClockApp) {
+		lastReloadMinute = getCurrentMinute();
 
-	// Reload table view when minute changes (check every second for minute change)
-	timer = [NSTimer scheduledTimerWithTimeInterval:1
-											 target:self
-										   selector:@selector(reloadTableViewOnMinuteChange)
-										   userInfo:nil
-											repeats:YES];
-	timer.tolerance = 1;
+		// Reload table view when minute changes (check every second for minute change)
+		timer = [NSTimer scheduledTimerWithTimeInterval:1
+												 target:self
+											   selector:@selector(reloadTableViewOnMinuteChange)
+											   userInfo:nil
+												repeats:YES];
+		timer.tolerance = 1;
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	%orig;
 
-	// Remove timer
-	[timer invalidate];
-	timer = nil;
+	if (timer != nil) {
+		// Remove timer
+		[timer invalidate];
+		timer = nil;
+	}
 }
 
 %new
@@ -304,7 +472,6 @@ static BOOL snoozedAlarmCellIsVisible = NO;
 
 
 static UILabel *timeLeftLabel = nil;
-static BOOL isNewAlarm = NO;
 
 #import "MobileTimer/EditAlarmView.h"
 
@@ -314,12 +481,6 @@ static BOOL isNewAlarm = NO;
 %hook EditAlarmViewController
 // The view controller that edits an alarm (presented modally)
 // Used to add a time left label in the header of the table view
-
-- (id)initWithAlarm:(id)alarm { 
-	// Save whether the view controller was opened by creating a new alarm or not
-	isNewAlarm = (alarm == nil);
-	return %orig;
-}
 
 - (void)viewDidLoad {
 	%orig;
@@ -343,16 +504,12 @@ static BOOL isNewAlarm = NO;
 	%orig;
 
 	Alarm *alarm = (Alarm *)[self valueForKey:@"alarm"];
-	if (alarm != nil && !isNewAlarm) {
-		// Opened by editing existing alarm
-		isNewAlarm = NO;
-		Alarm *editingProxy = alarm.editingProxy;
-		NSDate *nextFireDate = [editingProxy nextFireDate];
-		int difference = [nextFireDate timeIntervalSinceNow];
-		timeLeftLabel.text = stringFromDifference(difference);
+
+	if (alarm != nil) {
+		int difference = [[alarm.editingProxy nextFireDate] timeIntervalSinceNow];
+		timeLeftLabel.text = stringFromDifference(difference, clockAppTimeFormat);
 	} else {
-		// Opened by creating new alarm
-		timeLeftLabel.text = stringFromDifference(0);
+		timeLeftLabel.text = stringFromDifference(0, clockAppTimeFormat);
 	}
 
 	// Center timeLeftLabel in settings table header
@@ -390,7 +547,7 @@ static BOOL isNewAlarm = NO;
 
 	// Set timeLeftLabel to difference
 	int difference = [nextFireDate timeIntervalSinceNow];
-	timeLeftLabel.text = stringFromDifference(difference);
+	timeLeftLabel.text = stringFromDifference(difference, clockAppTimeFormat);
 
 	// Center timeLeftLabel in settings table header
 	UITableView *settingsTable = MSHookIvar<UITableView *>(editAlarmView, "_settingsTable");
@@ -405,7 +562,7 @@ static int getCurrentMinute() {
 	return [components minute];
 }
 
-static NSString *stringFromDifference(int difference) {
+static NSString *stringFromDifference(int difference, int format) {
 	if (difference > 0) {
 		difference += 60; // Round to next minute
 	}
@@ -416,27 +573,141 @@ static NSString *stringFromDifference(int difference) {
 	int minutes = ((difference % 86400) % 3600) / 60;
 
 	// Turn into string
-	NSString *daysString = (days > 0) ? [NSString stringWithFormat:@"%dd ", days] : @"";
-	NSString *hoursString = (hours > 0) ? [NSString stringWithFormat:@"%dh ", hours] : @"";
-	NSString *minuteString = (minutes > 0) ? [NSString stringWithFormat:@"%dm", minutes] : @"";
-	if (days == 0 && hours == 0 && minutes == 0) {
-		minuteString = [NSString stringWithFormat:@"%dm", minutes];
+	NSString *dateString = @"";
+
+	// 1d 9h 41m
+	if (format == 0) {
+		NSString *daysString = (days > 0) ? [NSString stringWithFormat:@"%d%@ ", days, LOCALIZED(@"D")] : @"";
+		NSString *hoursString = (hours > 0) ? [NSString stringWithFormat:@"%d%@ ", hours, LOCALIZED(@"H")] : @"";
+		NSString *minutesString = (minutes > 0) ? [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"M")] : @"";
+		if (days == 0 && hours == 0 && minutes == 0) {
+			minutesString = [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"M")];
+		}
+		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
 	}
-	return [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minuteString];
+	// 1day, 9hrs, 41mins
+	else if (format == 1) {
+		NSString *daysString = @"", *hoursString = @"", *minutesString = @"";
+		if (days > 0) {
+			daysString = [NSString stringWithFormat:@"%d%@ ", days, (days == 1) ? LOCALIZED(@"DAY") : LOCALIZED(@"DAYS")];
+		}
+		if (hours > 0) {
+			hoursString = [NSString stringWithFormat:@"%d%@ ", hours, (hours == 1) ? LOCALIZED(@"HR") : LOCALIZED(@"HRS")];
+		}
+		if (minutes > 0 || (days == 0 && hours == 0)) {
+			minutesString = [NSString stringWithFormat:@"%d%@", minutes, (minutes == 1) ? LOCALIZED(@"MIN") : LOCALIZED(@"MINS")];
+		}
+		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
+	}
+	// 1 day 9 hours 41 minutes
+	else if (format == 2) {
+		NSString *daysString = @"", *hoursString = @"", *minutesString = @"";
+		if (days > 0) {
+			daysString = [NSString stringWithFormat:@"%d %@ ", days, (days == 1) ? LOCALIZED(@"DAY") : LOCALIZED(@"DAYS")];
+		}
+		if (hours > 0) {
+			hoursString = [NSString stringWithFormat:@"%d %@ ", hours, (hours == 1) ? LOCALIZED(@"HOUR") : LOCALIZED(@"HOURS")];
+		}
+		if (minutes > 0 || (days == 0 && hours == 0)) {
+			minutesString = [NSString stringWithFormat:@"%d %@", minutes, (minutes == 1) ? LOCALIZED(@"MINUTE") : LOCALIZED(@"MINUTES")];
+		}
+		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
+	}
+	// 1:9:41
+	else if (format == 3) {
+		NSString *daysString = (days > 0) ? [NSString stringWithFormat:@"%d:", days] : @"";
+		NSString *hoursString = [NSString stringWithFormat:@"%d:", hours];
+		NSString *minutesString = [NSString stringWithFormat:@"%@%d", (minutes < 10) ? @"0" : @"", minutes];
+		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
+	}
+	
+	return [dateString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
+static NSDateFormatter *dateFormatter;
+
+static NSString *stringFromDate(NSDate* date) {
+	if (dateFormatter == nil) {
+		dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateStyle = NSDateFormatterNoStyle;
+		dateFormatter.timeStyle = NSDateFormatterShortStyle;
+	}
+	return [dateFormatter stringFromDate:date];
 }
 
 static CFStringRef settingsChangedNotification = CFSTR("com.ludvigeriksson.timeuntilalarmprefs/settingschanged");
-static CFStringRef timeUntilAlarmPrefsKey = CFSTR("com.ludvigeriksson.timeuntilalarmprefs");
+static CFStringRef timeUntilAlarmPrefsKey 	   = CFSTR("com.ludvigeriksson.timeuntilalarmprefs");
+
+static CFStringRef enableInClockAppKey 			= CFSTR("TUAEnableInClockApp");
 static CFStringRef enableForActiveAlarmsOnlyKey = CFSTR("TUAEnableForActiveAlarmsOnly");
+static CFStringRef clockAppFontSizeKey 			= CFSTR("TUAClockAppFontSize");
+static CFStringRef clockAppTimeFormatKey 		= CFSTR("TUAClockAppTimeFormat");
+static CFStringRef clockAppPositionKey 			= CFSTR("TUAClockAppPosition");
+
 static CFStringRef showNextActiveAlarmOnLockScreenKey = CFSTR("TUAShowNextActiveAlarmOnLockScreen");
+static CFStringRef lockScreenFontSizeKey 			  = CFSTR("TUALockScreenFontSize");
+static CFStringRef lockScreenTimeFormatKey 			  = CFSTR("TUALockScreenTimeFormat");
+static CFStringRef hideOnLockScreenIfKey 			  = CFSTR("TUAHideOnLockScreenIf");
+static CFStringRef lockScreenTimeTypeKey			  = CFSTR("TUALockScreenTimeType");
+
+static CFStringRef lockScreenHorizontalPositionKey 			    = CFSTR("TUALockScreenHorizontalPosition");
+static CFStringRef lockScreenVerticalPositionKey 				= CFSTR("TUALockScreenVerticalPosition");
+static CFStringRef lockScreenHorizontalPositionValueKey		    = CFSTR("TUALockScreenHorizontalPositionValue");
+static CFStringRef lockScreenVerticalPositionValueKey 			= CFSTR("TUALockScreenVerticalPositionValue");
+static CFStringRef lockScreenHorizontalPositionStartingPointKey = CFSTR("TUALockScreenHorizontalPositionStartingPoint");
+static CFStringRef lockScreenVerticalPositionStartingPointKey 	= CFSTR("TUALockScreenVerticalPositionStartingPoint");
 
 static void loadPrefs() {
     CFPreferencesAppSynchronize(timeUntilAlarmPrefsKey);
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(enableInClockAppKey, timeUntilAlarmPrefsKey))) {
+        enableInClockApp = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(enableInClockAppKey, timeUntilAlarmPrefsKey)) boolValue];
+    }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(enableForActiveAlarmsOnlyKey, timeUntilAlarmPrefsKey))) {
         enableForActiveAlarmsOnly = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(enableForActiveAlarmsOnlyKey, timeUntilAlarmPrefsKey)) boolValue];
     }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey))) {
+        clockAppFontSize = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppTimeFormatKey, timeUntilAlarmPrefsKey))) {
+        clockAppTimeFormat = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppTimeFormatKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppPositionKey, timeUntilAlarmPrefsKey))) {
+        clockAppPosition = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppPositionKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+
     if (CFBridgingRelease(CFPreferencesCopyAppValue(showNextActiveAlarmOnLockScreenKey, timeUntilAlarmPrefsKey))) {
         showNextActiveAlarmOnLockScreen = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(showNextActiveAlarmOnLockScreenKey, timeUntilAlarmPrefsKey)) boolValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontSizeKey, timeUntilAlarmPrefsKey))) {
+        lockScreenFontSize = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontSizeKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeFormatKey, timeUntilAlarmPrefsKey))) {
+        lockScreenTimeFormat = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeFormatKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenIfKey, timeUntilAlarmPrefsKey))) {
+        hideOnLockScreenIf = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenIfKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeTypeKey, timeUntilAlarmPrefsKey))) {
+        lockScreenTimeType = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeTypeKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionKey, timeUntilAlarmPrefsKey))) {
+        lockScreenHorizontalPosition = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionKey, timeUntilAlarmPrefsKey))) {
+        lockScreenVerticalPosition = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionValueKey, timeUntilAlarmPrefsKey))) {
+        lockScreenHorizontalPositionValue = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionValueKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionValueKey, timeUntilAlarmPrefsKey))) {
+        lockScreenVerticalPositionValue = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionValueKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionStartingPointKey, timeUntilAlarmPrefsKey))) {
+        lockScreenHorizontalPositionStartingPoint = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenHorizontalPositionStartingPointKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionStartingPointKey, timeUntilAlarmPrefsKey))) {
+        lockScreenVerticalPositionStartingPoint = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenVerticalPositionStartingPointKey, timeUntilAlarmPrefsKey)) intValue];
     }
 }
 

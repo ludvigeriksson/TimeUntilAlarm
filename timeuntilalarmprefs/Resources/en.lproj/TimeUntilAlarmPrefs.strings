@@ -1,0 +1,52 @@
+<plist version="1.0">
+<dict>
+	<key>CLOCK_APP</key>
+	<string>Clock app</string>
+	<key>ENABLE</key>
+	<string>Enable</string>
+	<key>HIDE_FOR_INACTIVE_ALARMS</key>
+	<string>Hide for inactive alarms</string>
+	<key>FONT_SIZE</key>
+	<string>Font size</string>
+	<key>TIME_FORMAT</key>
+	<string>Time format</string>
+	<key>POSITION</key>
+	<string>Position</string>
+	<key>ABOVE_SWITCH</key>
+	<string>Above switch</string>
+	<key>UNDER_SWITCH</key>
+	<string>Under switch</string>
+	<key>AFTER_TEXT</key>
+	<string>After text</string>
+	<key>REPLACE_TEXT</key>
+	<string>Replace text</string>
+	<key>LOCK_SCREEN</key>
+	<string>Lock screen</string>
+	<key>HIDE_IF</key>
+	<string>Hide if</string>
+	<key>NEVER</key>
+	<string>Never</string>
+	<key>TIME_UNTIL_ALARM</key>
+	<string>Time until alarm</string>
+	<key>ALARM_TIME</key>
+	<string>Alarm time</string>
+	<key>BOTH</key>
+	<string>Both</string>
+	<key>DEVELOPER</key>
+	<string>Developer</string>
+	<key>CONTACT</key>
+	<string>Contact</string>
+	<key>DONATE_PAYPAL</key>
+	<string>Donate via PayPal</string>
+	<key>DONATE_BITCOIN</key>
+	<string>Donate Bitcoin</string>
+	<key>9H_41M</key>
+	<string>9h 41m</string>
+	<key>9HRS_41MINS</key>
+	<string>9hrs 41mins</string>
+	<key>9_HOURS_41_MINUTES</key>
+	<string>9 hours 41 minutes</string>
+	<key>9:41</key>
+	<string>9:41</string>
+</dict>
+</plist>
