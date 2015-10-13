@@ -19,7 +19,3 @@ after-install::
 
 SUBPROJECTS += timeuntilalarmprefs
 include $(THEOS_MAKE_PATH)/aggregate.mk
-
-BUNDLE_NAME = TimeUntilAlarmBundle
-TimeUntilAlarmBundle_INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries
-include $(THEOS)/makefiles/bundle.mk

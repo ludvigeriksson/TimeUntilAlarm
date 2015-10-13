@@ -24,6 +24,8 @@
 	<string>Lock screen</string>
 	<key>HIDE_IF</key>
 	<string>Hide if</string>
+	<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
+	<string>Hide when music is playing</string>
 	<key>NEVER</key>
 	<string>Never</string>
 	<key>TIME_UNTIL_ALARM</key>

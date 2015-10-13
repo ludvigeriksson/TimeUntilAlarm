@@ -1,9 +1,10 @@
-#import <Preferences/Preferences.h>
-
-static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/TimeUntilAlarm.bundle"];
+// Bundle
+static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/TimeUntilAlarm"];
 #define LOCALIZED(str) [tweakBundle localizedStringForKey:str value:@"" table:nil]
 
 #define BITCOIN_ADDRESS @"18Wf4XCPSfd1NVkbhoLeu75CpPmRCAq4rL"
+
+#import <Preferences/Preferences.h>
 
 @interface TimeUntilAlarmPrefsListController: PSListController {
 	UIView *alert;
@@ -46,9 +47,7 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 	[title sizeToFit];
 	[alert addSubview:title];
 
-	NSString *bundlePath = @"/Library/MobileSubstrate/DynamicLibraries/TimeUntilAlarmBundle.bundle";
-	NSBundle *bundle = [[NSBundle alloc] initWithPath:bundlePath];
-	NSString *imagePath = [bundle pathForResource:@"Bitcoin" ofType:@"png"];
+	NSString *imagePath = [tweakBundle pathForResource:@"Bitcoin" ofType:@"png"];
 	UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
 
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];

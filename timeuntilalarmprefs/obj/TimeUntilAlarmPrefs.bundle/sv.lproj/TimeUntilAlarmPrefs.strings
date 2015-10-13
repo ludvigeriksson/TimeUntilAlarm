@@ -24,6 +24,8 @@
 	<string>Låsskärm</string>
 	<key>HIDE_IF</key>
 	<string>Göm om</string>
+	<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
+	<string>Göm när musik spelas</string>
 	<key>NEVER</key>
 	<string>Aldrig</string>
 	<key>TIME_UNTIL_ALARM</key>

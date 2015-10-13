@@ -1,7 +1,7 @@
 Package: com.ludvigeriksson.timeuntilalarm
 Name: TimeUntilAlarm
 Depends: mobilesubstrate
-Version: 1.1.3
+Version: 1.1.4
 Architecture: iphoneos-arm
 Description: Shows the time remaining until the alarms go off
 Maintainer: Ludvig Eriksson

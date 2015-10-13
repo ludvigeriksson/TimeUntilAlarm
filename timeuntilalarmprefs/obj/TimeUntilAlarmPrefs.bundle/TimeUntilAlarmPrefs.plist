@@ -301,6 +301,22 @@
 			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
 		</dict>
 
+		<!-- Hide when music is playing -->
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs</string>
+			<key>key</key>
+			<string>TUAHideOnLockScreenWhenMusicIsPlaying</string>
+			<key>label</key>
+			<string>HIDE_WHEN_MUSIC_IS_PLAYING</string>
+			<key>PostNotification</key>
+			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
+		</dict>
+
 		<!-- Time type -->
 		<dict>
 			<key>cell</key>
