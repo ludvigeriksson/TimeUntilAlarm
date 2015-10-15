@@ -131,7 +131,6 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 				[UIView animateWithDuration:0.25 animations:^() {
 					lockScreenAlarmView.alpha = 1.0;
 				} completion:nil];
-
 			}
 
 			nextAlarmLabel = (UILabel *)[lockScreenAlarmView viewWithTag:nextAlarmOnLockScreenLabelTag];
@@ -291,15 +290,31 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 - (id)nextFireDateAfterDate:(id)arg1 localTimeZone:(id)arg2;
 @end
 
+@interface SBClockDataProvider
+- (void)didScheduleNotifications:(NSArray *)notifications;
+@end
+
 %hook SBClockDataProvider
 // Used to save the next active alarm fire date
 
-// Called every time any notifications (e.g. alarms, timers) changes
+// Called every time any notifications (e.g. alarms, timers) changes on iOS 7 & 8
 - (id)_scheduledNotifications {
 	id r = %orig;
 
-	NSArray *notifications = (NSArray *)r;
+	[self didScheduleNotifications:r];
 
+	return r;
+}
+
+// Called every time any notifications (e.g. alarms, timers) changes on iOS 9
+- (void)_publishAlarmsWithScheduledNotifications:(id)arg1 {
+	%orig;
+
+	[self didScheduleNotifications:arg1];
+}
+
+%new
+- (void)didScheduleNotifications:(NSArray *)notifications {
 	NSDate *earliestFireDate = nil;
 	for (UIConcreteLocalNotification *notification in notifications) {
 		id userInfo = notification.userInfo;
@@ -315,8 +330,6 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		}
 	}
 	nextActiveAlarmFireDate = [earliestFireDate copy];
-
-	return r;
 }
 
 %end

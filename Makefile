@@ -12,6 +12,8 @@ TimeUntilAlarm_FILES = Tweak.xm
 TimeUntilAlarm_FRAMEWORKS = UIKit CoreGraphics
 TimeUntilAlarm_PRIVATE_FRAMEWORKS = MobileTimer
 
+TimeUntilAlarm_CODESIGN_FLAGS=-Sentitlements.xml
+
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
