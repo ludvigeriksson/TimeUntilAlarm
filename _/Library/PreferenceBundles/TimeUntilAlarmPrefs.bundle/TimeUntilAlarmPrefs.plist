@@ -60,6 +60,7 @@
 			<string>FONT_SIZE</string>
 			<key>validTitles</key>
 			<array>
+				<string>10</string>
 				<string>11</string>
 				<string>12</string>
 				<string>13</string>
@@ -70,9 +71,15 @@
 				<string>18</string>
 				<string>19</string>
 				<string>20</string>
+				<string>21</string>
+				<string>22</string>
+				<string>23</string>
+				<string>24</string>
+				<string>25</string>
 			</array>
 			<key>validValues</key>
 			<array>
+				<string>10</string>
 				<string>11</string>
 				<string>12</string>
 				<string>13</string>
@@ -83,6 +90,11 @@
 				<string>18</string>
 				<string>19</string>
 				<string>20</string>
+				<string>21</string>
+				<string>22</string>
+				<string>23</string>
+				<string>24</string>
+				<string>25</string>
 			</array>
 			<key>default</key>
 			<string>17</string>
@@ -193,6 +205,7 @@
 			<string>FONT_SIZE</string>
 			<key>validTitles</key>
 			<array>
+				<string>10</string>
 				<string>11</string>
 				<string>12</string>
 				<string>13</string>
@@ -203,9 +216,15 @@
 				<string>18</string>
 				<string>19</string>
 				<string>20</string>
+				<string>21</string>
+				<string>22</string>
+				<string>23</string>
+				<string>24</string>
+				<string>25</string>
 			</array>
 			<key>validValues</key>
 			<array>
+				<string>10</string>
 				<string>11</string>
 				<string>12</string>
 				<string>13</string>
@@ -216,6 +235,11 @@
 				<string>18</string>
 				<string>19</string>
 				<string>20</string>
+				<string>21</string>
+				<string>22</string>
+				<string>23</string>
+				<string>24</string>
+				<string>25</string>
 			</array>
 			<key>default</key>
 			<string>17</string>
@@ -350,6 +374,18 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>DEVELOPER</string>
+		</dict>
+
+		<!-- Visit website -->
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>VISIT_WEBSITE</string>
+			<key>action</key>
+			<string>openWebsite</string>
+			<key>icon</key>
+			<string>WebsiteIcon.png</string>
 		</dict>
 
 		<!-- Contact -->

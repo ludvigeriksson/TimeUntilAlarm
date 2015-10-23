@@ -1,30 +1,30 @@
 <plist version="1.0">
 <dict>
-    <key>D</key>
+    <key>DAY_SHORT</key>
     <string>d</string>
-    <key>H</key>
+    <key>HOUR_SHORT</key>
     <string>h</string>
-    <key>M</key>
+    <key>MINUTE_SHORT</key>
     <string>m</string>
-    <key>HR</key>
+    <key>HOUR_MEDIUM</key>
     <string>hr</string>
-    <key>HRS</key>
+    <key>HOURS_MEDIUM</key>
     <string>hrs</string>
-    <key>MIN</key>
+    <key>MINUTE_MEDIUM</key>
     <string>min</string>
-    <key>MINS</key>
+    <key>MINUTES_MEDIUM</key>
     <string>mins</string>
-    <key>DAY</key>
+    <key>DAY_FULL</key>
     <string>day</string>
-    <key>DAYS</key>
+    <key>DAYS_FULL</key>
     <string>days</string>
-    <key>HOUR</key>
+    <key>HOUR_FULL</key>
     <string>hour</string>
-    <key>HOURS</key>
+    <key>HOURS_FULL</key>
     <string>hours</string>
-    <key>MINUTE</key>
+    <key>MINUTE_FULL</key>
     <string>minute</string>
-    <key>MINUTES</key>
+    <key>MINUTES_FULL</key>
     <string>minutes</string>
     <key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
     <string>Your screen is %d points tall</string>

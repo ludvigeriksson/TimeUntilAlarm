@@ -120,17 +120,12 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		if (!snoozedAlarmCellIsVisible && nextActiveAlarmFireDate != nil && !hide) {
 			UILabel *nextAlarmLabel;
 			UIImageView *nextAlarmImageView;
-			if (lockScreenAlarmView == nil ) {
-
+			if (lockScreenAlarmView == nil) {
 				// Create next alarm view
 				lockScreenAlarmView = [self createAlarmView];
 
 				// Add complete alarm view to date view
-				lockScreenAlarmView.alpha = 0.0;
 				[dateView addSubview:lockScreenAlarmView];
-				[UIView animateWithDuration:0.25 animations:^() {
-					lockScreenAlarmView.alpha = 1.0;
-				} completion:nil];
 			}
 
 			nextAlarmLabel = (UILabel *)[lockScreenAlarmView viewWithTag:nextAlarmOnLockScreenLabelTag];
@@ -669,11 +664,11 @@ static NSString *stringFromDifference(int difference, int format) {
 
 	// 1d 9h 41m
 	if (format == 0) {
-		NSString *daysString = (days > 0) ? [NSString stringWithFormat:@"%d%@ ", days, LOCALIZED(@"D")] : @"";
-		NSString *hoursString = (hours > 0) ? [NSString stringWithFormat:@"%d%@ ", hours, LOCALIZED(@"H")] : @"";
-		NSString *minutesString = (minutes > 0) ? [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"M")] : @"";
+		NSString *daysString = (days > 0) ? [NSString stringWithFormat:@"%d%@ ", days, LOCALIZED(@"DAY_SHORT")] : @"";
+		NSString *hoursString = (hours > 0) ? [NSString stringWithFormat:@"%d%@ ", hours, LOCALIZED(@"HOUR_SHORT")] : @"";
+		NSString *minutesString = (minutes > 0) ? [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"MINUTE_SHORT")] : @"";
 		if (days == 0 && hours == 0 && minutes == 0) {
-			minutesString = [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"M")];
+			minutesString = [NSString stringWithFormat:@"%d%@", minutes, LOCALIZED(@"MINUTE_SHORT")];
 		}
 		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
 	}
@@ -681,13 +676,13 @@ static NSString *stringFromDifference(int difference, int format) {
 	else if (format == 1) {
 		NSString *daysString = @"", *hoursString = @"", *minutesString = @"";
 		if (days > 0) {
-			daysString = [NSString stringWithFormat:@"%d%@ ", days, (days == 1) ? LOCALIZED(@"DAY") : LOCALIZED(@"DAYS")];
+			daysString = [NSString stringWithFormat:@"%d%@ ", days, (days == 1) ? LOCALIZED(@"DAY_FULL") : LOCALIZED(@"DAYS_FULL")];
 		}
 		if (hours > 0) {
-			hoursString = [NSString stringWithFormat:@"%d%@ ", hours, (hours == 1) ? LOCALIZED(@"HR") : LOCALIZED(@"HRS")];
+			hoursString = [NSString stringWithFormat:@"%d%@ ", hours, (hours == 1) ? LOCALIZED(@"HOUR_MEDIUM") : LOCALIZED(@"HOURS_MEDIUM")];
 		}
 		if (minutes > 0 || (days == 0 && hours == 0)) {
-			minutesString = [NSString stringWithFormat:@"%d%@", minutes, (minutes == 1) ? LOCALIZED(@"MIN") : LOCALIZED(@"MINS")];
+			minutesString = [NSString stringWithFormat:@"%d%@", minutes, (minutes == 1) ? LOCALIZED(@"MINUTE_MEDIUM") : LOCALIZED(@"MINUTES_MEDIUM")];
 		}
 		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
 	}
@@ -695,13 +690,13 @@ static NSString *stringFromDifference(int difference, int format) {
 	else if (format == 2) {
 		NSString *daysString = @"", *hoursString = @"", *minutesString = @"";
 		if (days > 0) {
-			daysString = [NSString stringWithFormat:@"%d %@ ", days, (days == 1) ? LOCALIZED(@"DAY") : LOCALIZED(@"DAYS")];
+			daysString = [NSString stringWithFormat:@"%d %@ ", days, (days == 1) ? LOCALIZED(@"DAY_FULL") : LOCALIZED(@"DAYS_FULL")];
 		}
 		if (hours > 0) {
-			hoursString = [NSString stringWithFormat:@"%d %@ ", hours, (hours == 1) ? LOCALIZED(@"HOUR") : LOCALIZED(@"HOURS")];
+			hoursString = [NSString stringWithFormat:@"%d %@ ", hours, (hours == 1) ? LOCALIZED(@"HOUR_FULL") : LOCALIZED(@"HOURS_FULL")];
 		}
 		if (minutes > 0 || (days == 0 && hours == 0)) {
-			minutesString = [NSString stringWithFormat:@"%d %@", minutes, (minutes == 1) ? LOCALIZED(@"MINUTE") : LOCALIZED(@"MINUTES")];
+			minutesString = [NSString stringWithFormat:@"%d %@", minutes, (minutes == 1) ? LOCALIZED(@"MINUTE_FULL") : LOCALIZED(@"MINUTES_FULL")];
 		}
 		dateString = [NSString stringWithFormat:@"%@%@%@", daysString, hoursString, minutesString];
 	}

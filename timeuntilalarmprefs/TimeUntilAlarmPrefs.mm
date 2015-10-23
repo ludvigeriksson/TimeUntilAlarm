@@ -21,6 +21,11 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 	return _specifiers;
 }
 
+- (void)openWebsite {
+	NSURL *url = [NSURL URLWithString:@"http://ludvigeriksson.com"];
+	[[UIApplication sharedApplication] openURL:url];
+}
+
 - (void)contact {
 	NSURL *url = [NSURL URLWithString:@"mailto:ludvigeriksson@icloud.com?subject=TimeUntilAlarm"];
 	[[UIApplication sharedApplication] openURL:url];
@@ -185,8 +190,8 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 	[UIView animateWithDuration:0.25 animations:^{ label.frame = newFrame; }];
 
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-		[UIView animateWithDuration:0.25 
-						 animations:^{ label.frame = oldFrame; } 
+		[UIView animateWithDuration:0.25
+						 animations:^{ label.frame = oldFrame; }
 						 completion:^(BOOL finished) { [label removeFromSuperview]; }];
 	});
 }
@@ -357,7 +362,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.ludvigeriksson.timeu
 
 - (void)applicationWillResignActive {
 	// Pop when exiting app because of buggy layout
-	[self.navigationController popViewControllerAnimated:NO];
+	[[self valueForKey:@"navigationController"] popViewControllerAnimated:NO];
 	[[NSNotificationCenter defaultCenter] removeObserver:self
 												 	name:UIApplicationDidEnterBackgroundNotification
 											   	  object:[UIApplication sharedApplication]];

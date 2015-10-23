@@ -36,6 +36,8 @@
 	<string>Båda</string>
 	<key>DEVELOPER</key>
 	<string>Utvecklare</string>
+	<key>VISIT_WEBSITE</key>
+    <string>Besök hemsida</string>
 	<key>CONTACT</key>
 	<string>Kontakt</string>
 	<key>DONATE_PAYPAL</key>

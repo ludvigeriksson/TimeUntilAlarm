@@ -36,6 +36,8 @@
 	<string>Both</string>
 	<key>DEVELOPER</key>
 	<string>Developer</string>
+	<key>VISIT_WEBSITE</key>
+    <string>Visit website</string>
 	<key>CONTACT</key>
 	<string>Contact</string>
 	<key>DONATE_PAYPAL</key>
