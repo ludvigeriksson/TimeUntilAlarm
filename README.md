@@ -10,13 +10,7 @@ Features:
 
 Many options to choose from, including font size, position, time format and rules for when to hide the remaining time.
 
-<img src="/Screenshots/1.png" alt="Screenshot 1" width="220"/>
-<img src="/Screenshots/2.png" alt="Screenshot 2" width="220"/>
-<img src="/Screenshots/3.png" alt="Screenshot 3" width="220"/>
-<img src="/Screenshots/4.png" alt="Screenshot 4" width="220"/>
-<img src="/Screenshots/5.png" alt="Screenshot 4" width="220"/>
-<img src="/Screenshots/6.png" alt="Screenshot 4" width="220"/>
-<img src="/Screenshots/7.png" alt="Screenshot 4" width="220"/>
+For a full description of the tweak, visit ludvigeriksson.com/tweaks/timeuntilalarm.
 
 I want to keep TimeUntilAlarm free. If you like it, please consider donating to support further development of TimeUntilAlarm and other tweaks.
 
