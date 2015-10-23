@@ -10,7 +10,7 @@ Features:
 
 Many options to choose from, including font size, position, time format and rules for when to hide the remaining time.
 
-For a full description of the tweak, visit ludvigeriksson.com/tweaks/timeuntilalarm.
+For a full description of the tweak, visit [ludvigeriksson.com/tweaks/timeuntilalarm](http://ludvigeriksson.com/tweaks/timeuntilalarm).
 
 I want to keep TimeUntilAlarm free. If you like it, please consider donating to support further development of TimeUntilAlarm and other tweaks.
 
