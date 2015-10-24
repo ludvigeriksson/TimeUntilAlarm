@@ -343,6 +343,7 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 %group ClockAppHooks
 
 @interface AlarmView : UIView
+@property (nonatomic, readonly) UISwitch *enabledSwitch;
 - (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3;
 @end
 
@@ -397,7 +398,10 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 // If the time should be placed in the existing labels, it's set here.
 - (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3 {
 
-	if (enableInClockApp && (clockAppPosition == ClockAppPositionReplaceText || clockAppPosition == ClockAppPositionAfterText)) {
+	if (enableInClockApp &&
+		(clockAppPosition == ClockAppPositionReplaceText ||
+			clockAppPosition == ClockAppPositionAfterText) &&
+		(!enableForActiveAlarmsOnly || self.enabledSwitch.isOn)) {
 		UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
 		if (label != nil) {
 			if (clockAppPosition == ClockAppPositionReplaceText) {
