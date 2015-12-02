@@ -1,56 +1,56 @@
 <plist version="1.0">
-<dict>
-	<key>CLOCK_APP</key>
-	<string>Klockappen</string>
-	<key>ENABLE</key>
-	<string>Aktivera</string>
-	<key>HIDE_FOR_INACTIVE_ALARMS</key>
-	<string>Göm för inaktiva alarm</string>
-	<key>FONT_SIZE</key>
-	<string>Textstorlek</string>
-	<key>TIME_FORMAT</key>
-	<string>Tidsformat</string>
-	<key>POSITION</key>
-	<string>Position</string>
-	<key>ABOVE_SWITCH</key>
-	<string>Ovanför knapp</string>
-	<key>UNDER_SWITCH</key>
-	<string>Under knapp</string>
-	<key>AFTER_TEXT</key>
-	<string>Efter text</string>
-	<key>REPLACE_TEXT</key>
-	<string>Ersätt text</string>
-	<key>LOCK_SCREEN</key>
-	<string>Låsskärm</string>
-	<key>HIDE_IF</key>
-	<string>Göm om</string>
-	<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
-	<string>Göm när musik spelas</string>
-	<key>NEVER</key>
-	<string>Aldrig</string>
-	<key>TIME_UNTIL_ALARM</key>
-	<string>Tid till alarm</string>
-	<key>ALARM_TIME</key>
-	<string>Alarmtid</string>
-	<key>BOTH</key>
-	<string>Båda</string>
-	<key>DEVELOPER</key>
-	<string>Utvecklare</string>
-	<key>VISIT_WEBSITE</key>
-    <string>Besök hemsida</string>
-	<key>CONTACT</key>
-	<string>Kontakt</string>
-	<key>DONATE_PAYPAL</key>
-	<string>Donera via PayPal</string>
-	<key>DONATE_BITCOIN</key>
-	<string>Donera Bitcoin</string>
-	<key>9H_41M</key>
-	<string>9h 41m</string>
-	<key>9HRS_41MINS</key>
-	<string>9tim 41min</string>
-	<key>9_HOURS_41_MINUTES</key>
-	<string>9 timmar 41 minuter</string>
-	<key>9:41</key>
-	<string>9:41</string>
-</dict>
+	<dict>
+		<key>CLOCK_APP</key>
+		<string>Klockappen</string>
+		<key>ENABLE</key>
+		<string>Aktivera</string>
+		<key>HIDE_FOR_INACTIVE_ALARMS</key>
+		<string>Göm för inaktiva alarm</string>
+		<key>FONT_SIZE</key>
+		<string>Textstorlek</string>
+		<key>TIME_FORMAT</key>
+		<string>Tidsformat</string>
+		<key>POSITION</key>
+		<string>Position</string>
+		<key>ABOVE_SWITCH</key>
+		<string>Ovanför knapp</string>
+		<key>UNDER_SWITCH</key>
+		<string>Under knapp</string>
+		<key>AFTER_TEXT</key>
+		<string>Efter text</string>
+		<key>REPLACE_TEXT</key>
+		<string>Ersätt text</string>
+		<key>LOCK_SCREEN</key>
+		<string>Låsskärm</string>
+		<key>HIDE_IF</key>
+		<string>Göm om</string>
+		<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
+		<string>Göm när musik spelas</string>
+		<key>NEVER</key>
+		<string>Aldrig</string>
+		<key>TIME_UNTIL_ALARM</key>
+		<string>Tid till alarm</string>
+		<key>ALARM_TIME</key>
+		<string>Alarmtid</string>
+		<key>BOTH</key>
+		<string>Båda</string>
+		<key>DEVELOPER</key>
+		<string>Utvecklare</string>
+		<key>VISIT_WEBSITE</key>
+		<string>Besök hemsida</string>
+		<key>CONTACT</key>
+		<string>Kontakt</string>
+		<key>DONATE_PAYPAL</key>
+		<string>Donera via PayPal</string>
+		<key>DONATE_BITCOIN</key>
+		<string>Donera Bitcoin</string>
+		<key>9H_41M</key>
+		<string>9h 41m</string>
+		<key>9HRS_41MINS</key>
+		<string>9tim 41min</string>
+		<key>9_HOURS_41_MINUTES</key>
+		<string>9 timmar 41 minuter</string>
+		<key>9:41</key>
+		<string>9:41</string>
+	</dict>
 </plist>

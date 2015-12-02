@@ -1,36 +1,36 @@
 <plist version="1.0">
-<dict>
-	<key>LOCKSCREEN_POSITION</key>
-	<string>Låsskärmsposition</string>
-	<key>HORIZONTAL_POSITION</key>
-	<string>Horisontell position</string>
-	<key>LEFT</key>
-	<string>Vänster</string>
-	<key>RIGHT</key>
-	<string>Höger</string>
-	<key>MIDDLE</key>
-	<string>Mitten</string>
-	<key>CUSTOM</key>
-	<string>Anpassad</string>
-	<key>VERTICAL_POSITION</key>
-	<string>Vertikal position</string>
-	<key>TOP</key>
-	<string>Längst upp</string>
-	<key>UNDER_CLOCK</key>
-	<string>Under klockan</string>
-	<key>BOTTOM</key>
-	<string>Längst ned</string>
-	<key>SPECIFY_X_VALUE</key>
-	<string>Ange X-värde:</string>
-	<key>SPECIFY_Y_VALUE</key>
-	<string>Ange Y-värde:</string>
-	<key>FROM_LEFT</key>
-	<string>Från vänster</string>
-	<key>FROM_RIGHT</key>
-	<string>Från höger</string>
-	<key>FROM_TOP</key>
-	<string>Från toppen</string>
-	<key>FROM_BOTTOM</key>
-	<string>Från botten</string>
-</dict>
+	<dict>
+		<key>LOCKSCREEN_POSITION</key>
+		<string>Låsskärmsposition</string>
+		<key>HORIZONTAL_POSITION</key>
+		<string>Horisontell position</string>
+		<key>LEFT</key>
+		<string>Vänster</string>
+		<key>RIGHT</key>
+		<string>Höger</string>
+		<key>MIDDLE</key>
+		<string>Mitten</string>
+		<key>CUSTOM</key>
+		<string>Anpassad</string>
+		<key>VERTICAL_POSITION</key>
+		<string>Vertikal position</string>
+		<key>TOP</key>
+		<string>Längst upp</string>
+		<key>UNDER_CLOCK</key>
+		<string>Under klockan</string>
+		<key>BOTTOM</key>
+		<string>Längst ned</string>
+		<key>SPECIFY_X_VALUE</key>
+		<string>Ange X-värde:</string>
+		<key>SPECIFY_Y_VALUE</key>
+		<string>Ange Y-värde:</string>
+		<key>FROM_LEFT</key>
+		<string>Från vänster</string>
+		<key>FROM_RIGHT</key>
+		<string>Från höger</string>
+		<key>FROM_TOP</key>
+		<string>Från toppen</string>
+		<key>FROM_BOTTOM</key>
+		<string>Från botten</string>
+	</dict>
 </plist>

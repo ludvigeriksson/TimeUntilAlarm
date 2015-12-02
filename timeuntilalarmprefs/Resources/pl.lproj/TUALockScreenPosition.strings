@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>LOCKSCREEN_POSITION</key>
+<string>Pozycja ekran blokady</string>
+<key>HORIZONTAL_POSITION</key>
+<string>Pozycja w poziomie</string>
+<key>LEFT</key>
+<string>Lewo</string>
+<key>RIGHT</key>
+<string>Prawo</string>
+<key>MIDDLE</key>
+<string>Środek</string>
+<key>CUSTOM</key>
+<string>Własna</string>
+<key>VERTICAL_POSITION</key>
+<string>Pozycja pionowa</string>
+<key>TOP</key>
+<string>Góra</string>
+<key>UNDER_CLOCK</key>
+<string>Pod zegarem</string>
+<key>BOTTOM</key>
+<string>Dół</string>
+<key>SPECIFY_X_VALUE</key>
+<string>Określ wartość X:</string>
+<key>SPECIFY_Y_VALUE</key>
+<string>Określ wartość Y:</string>
+<key>FROM_LEFT</key>
+<string>Od lewej</string>
+<key>FROM_RIGHT</key>
+<string>Od prawej</string>
+<key>FROM_TOP</key>
+<string>Od góry</string>
+<key>FROM_BOTTOM</key>
+<string>Od dołu</string>
+</dict>
+</plist>

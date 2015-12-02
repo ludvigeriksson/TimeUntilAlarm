@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>CLOCK_APP</key>
+<string>Aplikacja zegar</string>
+<key>ENABLE</key>
+<string>Włącz</string>
+<key>HIDE_FOR_INACTIVE_ALARMS</key>
+<string>Ukryj dla nie aktywnych alarmów</string>
+<key>FONT_SIZE</key>
+<string>Wielkość czcionki</string>
+<key>TIME_FORMAT</key>
+<string>Format czasu</string>
+<key>POSITION</key>
+<string>Pozycja</string>
+<key>ABOVE_SWITCH</key>
+<string>Nad przełącznikiem</string>
+<key>UNDER_SWITCH</key>
+<string>Pod przełącznikiem</string>
+<key>AFTER_TEXT</key>
+<string>Za tekstem alarmu</string>
+<key>REPLACE_TEXT</key>
+<string>Zastąp tekst alarmu</string>
+<key>LOCK_SCREEN</key>
+<string>Blokada ekranu</string>
+<key>HIDE_IF</key>
+<string>Ukryj gdy</string>
+<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
+<string>Ukryj gdy gra muzyka</string>
+<key>NEVER</key>
+<string>Nigdy</string>
+<key>TIME_UNTIL_ALARM</key>
+<string>Czas do alarmu</string>
+<key>ALARM_TIME</key>
+<string>Czas alarmu</string>
+<key>BOTH</key>
+<string>Oba</string>
+<key>DEVELOPER</key>
+<string>Programista</string>
+<key>CONTACT</key>
+<string>Kontakt</string>
+<key>VISIT_WEBSITE</key>
+<string>Odwiedź Stronę</string>
+<key>DONATE_PAYPAL</key>
+<string>Wspomóż przez PayPal</string>
+<key>DONATE_BITCOIN</key>
+<string>Wspomóż Bitcoin</string>
+<key>9H_41M</key>
+<string>9g 41m</string>
+<key>9HRS_41MINS</key>
+<string>9godz 41 min</string>
+<key>9_HOURS_41_MINUTES</key>
+<string>9 godzin 41 minut</string>
+<key>9:41</key>
+<string>9:41</string>
+</dict>
+</plist>
