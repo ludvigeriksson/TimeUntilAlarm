@@ -388,7 +388,6 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
 		hiddenLabel = [[UILabel alloc] init];
 		hiddenLabel.tag = clockAppHiddenLabelTag;
-		hiddenLabel.hidden = YES;
 		[alarmView addSubview:hiddenLabel];
 	}
 
@@ -411,6 +410,8 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	} else {
 		label.hidden = YES;
 	}
+	hiddenLabel.hidden = label.hidden;
+	hiddenLabel.frame = CGRectZero;
 
 	// Set the color to match the time label's color
 	UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
@@ -469,10 +470,9 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 	if (enableInClockApp &&
 		(clockAppPosition == ClockAppPositionReplaceText ||
-			clockAppPosition == ClockAppPositionAfterText) &&
-		(!hideForInactiveAlarms || self.enabledSwitch.isOn)) {
+			clockAppPosition == ClockAppPositionAfterText)) {
 		UILabel *hiddenLabel = (UILabel *)[self viewWithTag:clockAppHiddenLabelTag];
-		if (hiddenLabel != nil) {
+		if (!hiddenLabel.hidden) {
 			if (clockAppPosition == ClockAppPositionReplaceText) {
 				arg1 = hiddenLabel.text;
 			} else if (clockAppPosition == ClockAppPositionAfterText) {
