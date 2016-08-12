@@ -44,7 +44,7 @@ typedef NS_ENUM(int, VerticalStartingPoint) {
 
 // Clock app properties
 static BOOL enableInClockApp = YES;
-static BOOL enableForActiveAlarmsOnly = NO;
+static BOOL hideForInactiveAlarms = NO;
 static int clockAppFontSize = 17;
 static int clockAppTimeFormat = 0;
 static const int clockAppLabelTag = 50;
@@ -374,45 +374,43 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
 	UILabel *hiddenLabel = (UILabel *)[alarmView viewWithTag:clockAppHiddenLabelTag];
 
-	UIView *enabledSwitch = MSHookIvar<UIView *>(alarmView, "_enabledSwitch");
-	BOOL showLabel = YES;
-	if (enableForActiveAlarmsOnly) {
-		showLabel = [[enabledSwitch valueForKey:@"isOn"] boolValue];
+	Alarm *alarm = (Alarm *)ui;
+	NSDate *nextFireDate = [alarm nextFireDate];
+	NSTimeInterval difference = [nextFireDate timeIntervalSinceNow];
+
+	if (label == nil) {
+		// Create the label if it doesn't already exists (cells gets reused)
+		label = [[UILabel alloc] init];
+		label.tag = clockAppLabelTag;
+		[self addSubview:label];
+	}
+	if (hiddenLabel == nil) {
+		// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
+		hiddenLabel = [[UILabel alloc] init];
+		hiddenLabel.tag = clockAppHiddenLabelTag;
+		hiddenLabel.hidden = YES;
+		[alarmView addSubview:hiddenLabel];
 	}
 
-	if (enableInClockApp && showLabel) {
-		Alarm *alarm = (Alarm *)ui;
-		NSDate *nextFireDate = [alarm nextFireDate];
-		NSTimeInterval difference = [nextFireDate timeIntervalSinceNow];
-
-		if (label == nil) {
-			// Create the label if it doesn't already exists (cells gets reused)
-			label = [[UILabel alloc] init];
-			label.tag = clockAppLabelTag;
-			[self addSubview:label];
-		}
-		if (hiddenLabel == nil) {
-			// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
-			hiddenLabel = [[UILabel alloc] init];
-			hiddenLabel.tag = clockAppHiddenLabelTag;
-			hiddenLabel.hidden = YES;
-			[alarmView addSubview:hiddenLabel];
-		}
-
-		// Set the label text to the time remaining
-		label.text = stringFromDifference(difference, clockAppTimeFormat);
-		hiddenLabel.text = label.text;
-		label.font = [UIFont systemFontOfSize:clockAppFontSize];
-		[label sizeToFit];
-
-		label.hidden = NO;
-
-	} else if (label != nil) {
-		// Hide if disabled in clock app
-		label.hidden = YES;
-	}
+	// Set the label text to the time remaining
+	label.text = stringFromDifference(difference, clockAppTimeFormat);
+	hiddenLabel.text = label.text;
+	label.font = [UIFont systemFontOfSize:clockAppFontSize];
+	[label sizeToFit];
 
 	%orig;
+
+	// Hide depending on settings
+	if (enableInClockApp) {
+		BOOL enabled = MSHookIvar<BOOL>(self, "_enabled");
+		if (hideForInactiveAlarms && !enabled) {
+			label.hidden = YES;
+		} else {
+			label.hidden = NO;
+		}
+	} else {
+		label.hidden = YES;
+	}
 
 	// Set the color to match the time label's color
 	UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
@@ -472,7 +470,7 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	if (enableInClockApp &&
 		(clockAppPosition == ClockAppPositionReplaceText ||
 			clockAppPosition == ClockAppPositionAfterText) &&
-		(!enableForActiveAlarmsOnly || self.enabledSwitch.isOn)) {
+		(!hideForInactiveAlarms || self.enabledSwitch.isOn)) {
 		UILabel *hiddenLabel = (UILabel *)[self viewWithTag:clockAppHiddenLabelTag];
 		if (hiddenLabel != nil) {
 			if (clockAppPosition == ClockAppPositionReplaceText) {
@@ -750,7 +748,7 @@ static CFStringRef settingsChangedNotification = CFSTR("com.ludvigeriksson.timeu
 static CFStringRef timeUntilAlarmPrefsKey 	   = CFSTR("com.ludvigeriksson.timeuntilalarmprefs");
 
 static CFStringRef enableInClockAppKey 			= CFSTR("TUAEnableInClockApp");
-static CFStringRef enableForActiveAlarmsOnlyKey = CFSTR("TUAEnableForActiveAlarmsOnly");
+static CFStringRef hideForInactiveAlarmsKey 	= CFSTR("TUAEnableForActiveAlarmsOnly"); // Was called this previously, remains unchanged for compatability
 static CFStringRef clockAppFontSizeKey 			= CFSTR("TUAClockAppFontSize");
 static CFStringRef clockAppTimeFormatKey 		= CFSTR("TUAClockAppTimeFormat");
 static CFStringRef clockAppPositionKey 			= CFSTR("TUAClockAppPosition");
@@ -774,8 +772,8 @@ static void loadPrefs() {
     if (CFBridgingRelease(CFPreferencesCopyAppValue(enableInClockAppKey, timeUntilAlarmPrefsKey))) {
         enableInClockApp = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(enableInClockAppKey, timeUntilAlarmPrefsKey)) boolValue];
     }
-    if (CFBridgingRelease(CFPreferencesCopyAppValue(enableForActiveAlarmsOnlyKey, timeUntilAlarmPrefsKey))) {
-        enableForActiveAlarmsOnly = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(enableForActiveAlarmsOnlyKey, timeUntilAlarmPrefsKey)) boolValue];
+    if (CFBridgingRelease(CFPreferencesCopyAppValue(hideForInactiveAlarmsKey, timeUntilAlarmPrefsKey))) {
+        hideForInactiveAlarms = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(hideForInactiveAlarmsKey, timeUntilAlarmPrefsKey)) boolValue];
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey))) {
         clockAppFontSize = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey)) intValue];
