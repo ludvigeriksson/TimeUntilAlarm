@@ -7,6 +7,8 @@ static NSString *stringFromDate(NSDate *date);
 static NSString *stringFromDifference(int difference, int format);
 static int getCurrentMinute();
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 // Enums
 typedef NS_ENUM(int, ClockAppPosition) {
 	ClockAppPositionAboveSwitch = 0,
@@ -46,6 +48,7 @@ static BOOL enableForActiveAlarmsOnly = NO;
 static int clockAppFontSize = 17;
 static int clockAppTimeFormat = 0;
 static const int clockAppLabelTag = 50;
+static const int clockAppHiddenLabelTag = 51;
 static int lastReloadMinute = 0;
 static NSTimer *reloadEveryMinuteTimer = nil;
 
@@ -342,8 +345,14 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 %group ClockAppHooks
 
+@interface DigitalClockLabel : UIView
+@end
+
 @interface AlarmView : UIView
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, readonly) UILabel *nameLabel;
 @property (nonatomic, readonly) UISwitch *enabledSwitch;
+@property (nonatomic, readonly) DigitalClockLabel *timeLabel;
 - (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3;
 @end
 
@@ -362,11 +371,16 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 - (void)refreshUI:(id)ui animated:(BOOL)animated {
 
 	AlarmView *alarmView = MSHookIvar<AlarmView *>(self, "_alarmView");
-	UILabel *label = (UILabel *)[alarmView viewWithTag:clockAppLabelTag];
+	UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
+	UILabel *hiddenLabel = (UILabel *)[alarmView viewWithTag:clockAppHiddenLabelTag];
 
-	if (enableInClockApp) {
-		label.hidden = NO;
+	UIView *enabledSwitch = MSHookIvar<UIView *>(alarmView, "_enabledSwitch");
+	BOOL showLabel = YES;
+	if (enableForActiveAlarmsOnly) {
+		showLabel = [[enabledSwitch valueForKey:@"isOn"] boolValue];
+	}
 
+	if (enableInClockApp && showLabel) {
 		Alarm *alarm = (Alarm *)ui;
 		NSDate *nextFireDate = [alarm nextFireDate];
 		NSTimeInterval difference = [nextFireDate timeIntervalSinceNow];
@@ -375,13 +389,23 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 			// Create the label if it doesn't already exists (cells gets reused)
 			label = [[UILabel alloc] init];
 			label.tag = clockAppLabelTag;
-			[alarmView addSubview:label];
+			[self addSubview:label];
+		}
+		if (hiddenLabel == nil) {
+			// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
+			hiddenLabel = [[UILabel alloc] init];
+			hiddenLabel.tag = clockAppHiddenLabelTag;
+			hiddenLabel.hidden = YES;
+			[alarmView addSubview:hiddenLabel];
 		}
 
 		// Set the label text to the time remaining
 		label.text = stringFromDifference(difference, clockAppTimeFormat);
+		hiddenLabel.text = label.text;
 		label.font = [UIFont systemFontOfSize:clockAppFontSize];
 		[label sizeToFit];
+
+		label.hidden = NO;
 
 	} else if (label != nil) {
 		// Hide if disabled in clock app
@@ -389,6 +413,53 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	}
 
 	%orig;
+
+	// Set the color to match the time label's color
+	UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
+	label.textColor = timeLabel.textColor;
+}
+
+- (void)layoutSubviews {
+	%orig;
+
+	UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
+	AlarmView *alarmView = MSHookIvar<AlarmView *>(self, "_alarmView");
+	UIView *enabledSwitch = MSHookIvar<UIView *>(alarmView, "_enabledSwitch");
+
+	// Position the label
+	[label sizeToFit];
+	CGRect frame = label.frame;
+
+	switch (clockAppPosition) {
+		case ClockAppPositionAboveSwitch:
+			if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.3")) {
+				// Layout changed in 9.3
+				// enabledSwitch is now to the left of alarmView instead of inside of it
+				frame.origin.x = CGRectGetWidth(alarmView.bounds) + CGRectGetWidth(enabledSwitch.bounds) - CGRectGetWidth(label.bounds);
+			} else {
+				frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - CGRectGetWidth(label.bounds);
+			}
+			frame.origin.y = (CGRectGetHeight(alarmView.bounds) / 2 - CGRectGetHeight(enabledSwitch.bounds) / 2) / 2 - CGRectGetHeight(label.bounds) / 2;
+			break;
+		case ClockAppPositionUnderSwitch:
+			if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.3")) {
+				frame.origin.x = CGRectGetWidth(alarmView.bounds) + CGRectGetWidth(enabledSwitch.bounds) - CGRectGetWidth(label.bounds);
+			} else {
+				frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - CGRectGetWidth(label.bounds);
+			}
+			frame.origin.y = (3 * CGRectGetHeight(alarmView.bounds) / 2 + CGRectGetHeight(enabledSwitch.bounds) / 2) / 2 - CGRectGetHeight(label.bounds) / 2;
+			break;
+		case ClockAppPositionAfterText:
+		case ClockAppPositionReplaceText:
+			// The time is placed in the existing text label instead
+			// This occurs in setName:andRepeatText:textColor: above
+			frame = CGRectZero;
+			break;
+		default:
+			break;
+	}
+
+	label.frame = frame;
 }
 
 %end
@@ -402,68 +473,17 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		(clockAppPosition == ClockAppPositionReplaceText ||
 			clockAppPosition == ClockAppPositionAfterText) &&
 		(!enableForActiveAlarmsOnly || self.enabledSwitch.isOn)) {
-		UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
-		if (label != nil) {
+		UILabel *hiddenLabel = (UILabel *)[self viewWithTag:clockAppHiddenLabelTag];
+		if (hiddenLabel != nil) {
 			if (clockAppPosition == ClockAppPositionReplaceText) {
-				arg1 = label.text;
+				arg1 = hiddenLabel.text;
 			} else if (clockAppPosition == ClockAppPositionAfterText) {
-				arg1 = [arg1 stringByAppendingFormat:@", %@", label.text];
+				arg1 = [arg1 stringByAppendingFormat:@", %@", hiddenLabel.text];
 			}
 		}
 	}
 
 	%orig;
-}
-
-// Used to position the time left label
-- (void)layoutSubviews {
-	%orig;
-
-	if (enableInClockApp) {
-		// Get the label to present the time remaining
-		UILabel *label = (UILabel *)[self viewWithTag:clockAppLabelTag];
-		if (label != nil) {
-			UIView *enabledSwitch = MSHookIvar<UIView *>(self, "_enabledSwitch");
-
-			BOOL showLabel = YES;
-			if (enableForActiveAlarmsOnly) {
-				showLabel = [[enabledSwitch valueForKey:@"isOn"] boolValue];
-			}
-
-			if (showLabel) {
-				label.hidden = NO;
-
-				// Set the color to match the time label's color
-				UIView *timeLabel = MSHookIvar<UIView *>(self, "_timeLabel");
-				label.textColor = (UIColor *)[timeLabel valueForKey:@"textColor"];
-
-				// Position the label
-				CGRect frame = label.frame;
-
-				switch (clockAppPosition) {
-					case ClockAppPositionAboveSwitch:
-						frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - label.bounds.size.width;
-						frame.origin.y = enabledSwitch.frame.origin.y / 2 - label.bounds.size.height / 2;
-						break;
-					case ClockAppPositionUnderSwitch:
-						frame.origin.x = CGRectGetMaxX(enabledSwitch.frame) - label.bounds.size.width;
-						frame.origin.y = (CGRectGetMaxY(self.frame) + CGRectGetMaxY(enabledSwitch.frame)) / 2 - label.bounds.size.height / 2;
-						break;
-					case ClockAppPositionAfterText:
-					case ClockAppPositionReplaceText:
-						// The time is placed in the existing text label instead
-						// This occurs in setName:andRepeatText:textColor: above
-						frame = CGRectZero;
-						break;
-					default:
-						break;
-				}
-				label.frame = frame;
-			} else {
-				label.hidden = YES;
-			}
-		}
-	}
 }
 
 %end
@@ -646,10 +666,10 @@ static UILabel *timeLeftLabel = nil;
 
 // HELPERS
 
-static const NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+static const NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 
 static int getCurrentMinute() {
-	NSDateComponents *components = [calendar components:NSMinuteCalendarUnit fromDate:[NSDate date]];
+	NSDateComponents *components = [calendar components:NSCalendarUnitMinute fromDate:[NSDate date]];
 	return [components minute];
 }
 
