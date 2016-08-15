@@ -345,14 +345,8 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 %group ClockAppHooks
 
-@interface DigitalClockLabel : UIView
-@end
-
 @interface AlarmView : UIView
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, readonly) UILabel *nameLabel;
 @property (nonatomic, readonly) UISwitch *enabledSwitch;
-@property (nonatomic, readonly) DigitalClockLabel *timeLabel;
 - (void)setName:(id)arg1 andRepeatText:(id)arg2 textColor:(id)arg3;
 @end
 
@@ -361,6 +355,7 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 @property(nonatomic) unsigned int minute;
 @property(nonatomic) unsigned int hour;
 @property (readonly, nonatomic) Alarm *editingProxy;
+@property(readonly, nonatomic, getter=isActive) BOOL active;
 
 - (id)nextFireDate;
 @end
@@ -384,24 +379,24 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		label.tag = clockAppLabelTag;
 		[self addSubview:label];
 	}
-	if (hiddenLabel == nil) {
-		// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
-		hiddenLabel = [[UILabel alloc] init];
-		hiddenLabel.tag = clockAppHiddenLabelTag;
-		[alarmView addSubview:hiddenLabel];
-	}
 
 	// Set the label text to the time remaining
 	label.text = stringFromDifference(difference, clockAppTimeFormat);
-	hiddenLabel.text = label.text;
 	label.font = [UIFont systemFontOfSize:clockAppFontSize];
-	[label sizeToFit];
 
-	%orig;
+	switch (clockAppPosition) {
+		case ClockAppPositionAfterText:
+		case ClockAppPositionReplaceText:
+			label.frame = CGRectZero;
+			break;
+		default:
+			[label sizeToFit];
+	}
 
 	// Hide depending on settings
 	if (enableInClockApp) {
-		BOOL enabled = MSHookIvar<BOOL>(self, "_enabled");
+		// BOOL enabled = MSHookIvar<BOOL>(self, "_enabled");
+		BOOL enabled = alarm.isActive;
 		if (hideForInactiveAlarms && !enabled) {
 			label.hidden = YES;
 		} else {
@@ -410,10 +405,22 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	} else {
 		label.hidden = YES;
 	}
+
+	if (hiddenLabel == nil) {
+		// Create a hidden label that the AlarmView can read from to set 'After/Replace text'
+		hiddenLabel = [[UILabel alloc] init];
+		hiddenLabel.tag = clockAppHiddenLabelTag;
+		[alarmView addSubview:hiddenLabel];
+	}
+	// Setup hidden label to carry information down to the alarmView
+	hiddenLabel.text = label.text;
 	hiddenLabel.hidden = label.hidden;
 	hiddenLabel.frame = CGRectZero;
 
+	%orig;
+
 	// Set the color to match the time label's color
+	// (must be set after %orig so that timeLabel is updated)
 	UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
 	label.textColor = timeLabel.textColor;
 }
