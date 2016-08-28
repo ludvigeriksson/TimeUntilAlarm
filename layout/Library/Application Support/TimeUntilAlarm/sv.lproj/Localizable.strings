@@ -1,42 +1,53 @@
-<plist version="1.0">
-<dict>
-    <key>DAY_SHORT</key>
-    <string>d</string>
-    <key>HOUR_SHORT</key>
-    <string>h</string>
-    <key>MINUTE_SHORT</key>
-    <string>m</string>
-    <key>HOUR_MEDIUM</key>
-    <string>tim</string>
-    <key>HOURS_MEDIUM</key>
-    <string>tim</string>
-    <key>MINUTE_MEDIUM</key>
-    <string>min</string>
-    <key>MINUTES_MEDIUM</key>
-    <string>min</string>
-    <key>DAY_FULL</key>
-    <string>dag</string>
-    <key>DAYS_FULL</key>
-    <string>dagar</string>
-    <key>HOUR_FULL</key>
-    <string>timme</string>
-    <key>HOURS_FULL</key>
-    <string>timmar</string>
-    <key>MINUTE_FULL</key>
-    <string>minut</string>
-    <key>MINUTES_FULL</key>
-    <string>minuter</string>
-    <key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
-    <string>Din skärm är %d punkter hög</string>
-    <key>YOUR_SCREEN_IS_X_POINTS_WIDE</key>
-    <string>Din skärm är %d punkter bred</string>
-    <key>DONATE_BITCOIN</key>
-    <string>Donera Bitcoin</string>
-    <key>COPY_TO_CLIPBOARD</key>
-    <string>Kopiera till urklipp</string>
-    <key>DISMISS</key>
-    <string>Avfärda</string>
-    <key>COPIED</key>
-    <string>Kopierad!</string>
-</dict>
-</plist>
+/* The shortest abbreviation of 'day', used in format: 1d 9h 41m */
+"DAY_SHORT" = "d";
+
+/* The shortest abbreviation of 'hours', used in format: 1d 9h 41m */
+"HOUR_SHORT" = "h";
+
+/* The shortest abbreviation of 'minutes', used in format: 1d 9h 41m */
+"MINUTE_SHORT" = "m";
+
+/* A medium length abbreviation of 'hour', used in format: 1day, 9hrs, 41mins */
+"HOUR_MEDIUM" = "tim";
+
+/* A medium length abbreviation of 'hours' (plural), used in format: 1day, 9hrs, 41mins */
+"HOURS_MEDIUM" = "tim";
+
+/* A medium length abbreviation of 'minute', used in format: 1day, 9hrs, 41mins */
+"MINUTE_MEDIUM" = "min";
+
+/* A medium length abbreviation of 'minutes' (plural), used in format: 1day, 9hrs, 41mins */
+"MINUTES_MEDIUM" = "min";
+
+/* Full length 'day', used in format: 1 day 9 hours 41 minutes */
+"DAY_FULL" = "dag";
+
+/* Full length 'days' (plural), used in format: 1 day 9 hours 41 minutes */
+"DAYS_FULL" = "dagar";
+
+/* Full length 'hour', used in format: 1 day 9 hours 41 minutes */
+"HOUR_FULL" = "timme";
+
+/* Full length 'hours' (plural), used in format: 1 day 9 hours 41 minutes */
+"HOURS_FULL" = "timmar";
+
+/* Full length 'minute', used in format: 1 day 9 hours 41 minutes */
+"MINUTE_FULL" = "minut";
+
+/* Full length 'minutes' (plural), used in format: 1 day 9 hours 41 minutes */
+"MINUTES_FULL" = "minuter";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_Y_POINTS_TALL" = "Din skärm är %d punkter hög";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_X_POINTS_WIDE" = "Din skärm är %d punkter bred";
+
+"DONATE_BITCOIN" = "Donera Bitcoin";
+"COPY_TO_CLIPBOARD" = "Kopiera till urklipp";
+
+/* Title of dismiss button on alert */
+"DISMISS" = "Avfärda";
+
+/* Confirmation of 'Copy to clipboard' */
+"COPIED" = "Kopierad!";

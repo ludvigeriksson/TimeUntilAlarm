@@ -1,56 +1,28 @@
-<plist version="1.0">
-	<dict>
-		<key>CLOCK_APP</key>
-		<string>Clock app</string>
-		<key>ENABLE</key>
-		<string>Enable</string>
-		<key>HIDE_FOR_INACTIVE_ALARMS</key>
-		<string>Hide for inactive alarms</string>
-		<key>FONT_SIZE</key>
-		<string>Font size</string>
-		<key>TIME_FORMAT</key>
-		<string>Time format</string>
-		<key>POSITION</key>
-		<string>Position</string>
-		<key>ABOVE_SWITCH</key>
-		<string>Above switch</string>
-		<key>UNDER_SWITCH</key>
-		<string>Under switch</string>
-		<key>AFTER_TEXT</key>
-		<string>After text</string>
-		<key>REPLACE_TEXT</key>
-		<string>Replace text</string>
-		<key>LOCK_SCREEN</key>
-		<string>Lock screen</string>
-		<key>HIDE_IF</key>
-		<string>Hide if</string>
-		<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
-		<string>Hide when music is playing</string>
-		<key>NEVER</key>
-		<string>Never</string>
-		<key>TIME_UNTIL_ALARM</key>
-		<string>Time until alarm</string>
-		<key>ALARM_TIME</key>
-		<string>Alarm time</string>
-		<key>BOTH</key>
-		<string>Both</string>
-		<key>DEVELOPER</key>
-		<string>Developer</string>
-		<key>VISIT_WEBSITE</key>
-		<string>Visit website</string>
-		<key>CONTACT</key>
-		<string>Contact</string>
-		<key>DONATE_PAYPAL</key>
-		<string>Donate via PayPal</string>
-		<key>DONATE_BITCOIN</key>
-		<string>Donate Bitcoin</string>
-		<key>9H_41M</key>
-		<string>9h 41m</string>
-		<key>9HRS_41MINS</key>
-		<string>9hrs 41mins</string>
-		<key>9_HOURS_41_MINUTES</key>
-		<string>9 hours 41 minutes</string>
-		<key>9:41</key>
-		<string>9:41</string>
-	</dict>
-</plist>
+"CLOCK_APP" = "Clock app";
+"ENABLE" = "Enable";
+"HIDE_FOR_INACTIVE_ALARMS" = "Hide for inactive alarms";
+"FONT_SIZE" = "Font size";
+"TIME_FORMAT" = "Time format";
+"POSITION" = "Position";
+"ABOVE_SWITCH" = "Above switch";
+"UNDER_SWITCH" = "Under switch";
+"AFTER_TEXT" = "After text";
+"REPLACE_TEXT" = "Replace text";
+"LOCK_SCREEN" = "Lock screen";
+"HIDE_IF" = "Hide if";
+"HIDE_WHEN_MUSIC_IS_PLAYING" = "Hide when music is playing";
+"NEVER" = "Never";
+"TIME_UNTIL_ALARM" = "Time until alarm";
+"ALARM_TIME" = "Alarm time";
+"BOTH" = "Both";
+"DEVELOPER" = "Developer";
+"VISIT_WEBSITE" = "Visit website";
+"CONTACT" = "Contact";
+"DONATE_PAYPAL" = "Donate via PayPal";
+"DONATE_BITCOIN" = "Donate Bitcoin";
+"TRANSLATIONS" = "Translations";
+"9H_41M" = "9h 41m";
+"9HRS_41MINS" = "9hrs 41mins";
+"9_HOURS_41_MINUTES" = "9 hours 41 minutes";
+"9:41" = "9:41";
+"VIEW_SOURCE_CODE" = "View source code";

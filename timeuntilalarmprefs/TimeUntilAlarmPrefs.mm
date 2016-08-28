@@ -4,6 +4,14 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 
 #define BITCOIN_ADDRESS @"18Wf4XCPSfd1NVkbhoLeu75CpPmRCAq4rL"
 
+static const NSDictionary *TUATranslators = @{
+	@"English" : @"Ludvig Eriksson",
+	@"Swedish" : @"Ludvig Eriksson",
+	@"Polish"  : @"Daniel Kowalski",
+	@"Arabic"  : @"Tariq",
+	@"Russian" : @"Murphy Pendleton"
+};
+
 #import <Preferences/Preferences.h>
 
 @interface TimeUntilAlarmPrefsListController: PSListController {
@@ -28,6 +36,11 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 
 - (void)contact {
 	NSURL *url = [NSURL URLWithString:@"mailto:ludvigeriksson@icloud.com?subject=TimeUntilAlarm"];
+	[[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)viewSourceCode {
+	NSURL *url = [NSURL URLWithString:@"https://github.com/ludvigeriksson/TimeUntilAlarm"];
 	[[UIApplication sharedApplication] openURL:url];
 }
 
@@ -276,6 +289,31 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 
 @end
 
+
+
+
+@interface TUATranslationsListController : PSListController
+@end
+
+@implementation TUATranslationsListController
+
+- (id)specifiers {
+    if(_specifiers == nil) {
+        _specifiers = [self loadSpecifiersFromPlistName:@"TUATranslations" target:self];
+    }
+    return _specifiers;
+}
+
+- (NSString *)translatorForLanguage:(PSSpecifier *)specifier {
+	return TUATranslators[specifier.name];
+}
+
+- (void)helpMeTranslate {
+	NSURL *url = [NSURL URLWithString:@"http://translate.ludvigeriksson.com"];
+	[[UIApplication sharedApplication] openURL:url];
+}
+
+@end
 
 
 

@@ -382,6 +382,11 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>DEVELOPER</string>
+			<key>footerText</key>
+			<string>TimeUntilAlarm is free and open source. If you like it, you can buy me a beer using the donation links above to encourage continued development of this and other tweaks.
+
+Thanks to icon creators Pham Thi Dieu Linh, AFY Studio and Bernar Novalyi from The Noun Project (CC).
+			</string>
 		</dict>
 
 		<!-- Visit website -->
@@ -408,6 +413,18 @@
 			<string>MailIcon.png</string>
 		</dict>
 
+		<!-- View source code -->
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>VIEW_SOURCE_CODE</string>
+			<key>action</key>
+			<string>viewSourceCode</string>
+			<key>icon</key>
+			<string>CodeIcon</string>
+		</dict>
+
 		<!-- Donate via PayPal -->
 		<dict>
 			<key>cell</key>
@@ -430,6 +447,18 @@
 			<string>donateBitcoin</string>
 			<key>icon</key>
 			<string>BitcoinIcon.png</string>
+		</dict>
+
+		<!-- Translations -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>TRANSLATIONS</string>
+			<key>icon</key>
+			<string>TranslationIcon</string>
+			<key>detail</key>
+			<string>TUATranslationsListController</string>
 		</dict>
 	</array>
 	<key>title</key>

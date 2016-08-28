@@ -1,56 +1,28 @@
-<plist version="1.0">
-	<dict>
-		<key>CLOCK_APP</key>
-		<string>Klockappen</string>
-		<key>ENABLE</key>
-		<string>Aktivera</string>
-		<key>HIDE_FOR_INACTIVE_ALARMS</key>
-		<string>Göm för inaktiva alarm</string>
-		<key>FONT_SIZE</key>
-		<string>Textstorlek</string>
-		<key>TIME_FORMAT</key>
-		<string>Tidsformat</string>
-		<key>POSITION</key>
-		<string>Position</string>
-		<key>ABOVE_SWITCH</key>
-		<string>Ovanför knapp</string>
-		<key>UNDER_SWITCH</key>
-		<string>Under knapp</string>
-		<key>AFTER_TEXT</key>
-		<string>Efter text</string>
-		<key>REPLACE_TEXT</key>
-		<string>Ersätt text</string>
-		<key>LOCK_SCREEN</key>
-		<string>Låsskärm</string>
-		<key>HIDE_IF</key>
-		<string>Göm om</string>
-		<key>HIDE_WHEN_MUSIC_IS_PLAYING</key>
-		<string>Göm när musik spelas</string>
-		<key>NEVER</key>
-		<string>Aldrig</string>
-		<key>TIME_UNTIL_ALARM</key>
-		<string>Tid till alarm</string>
-		<key>ALARM_TIME</key>
-		<string>Alarmtid</string>
-		<key>BOTH</key>
-		<string>Båda</string>
-		<key>DEVELOPER</key>
-		<string>Utvecklare</string>
-		<key>VISIT_WEBSITE</key>
-		<string>Besök hemsida</string>
-		<key>CONTACT</key>
-		<string>Kontakt</string>
-		<key>DONATE_PAYPAL</key>
-		<string>Donera via PayPal</string>
-		<key>DONATE_BITCOIN</key>
-		<string>Donera Bitcoin</string>
-		<key>9H_41M</key>
-		<string>9h 41m</string>
-		<key>9HRS_41MINS</key>
-		<string>9tim 41min</string>
-		<key>9_HOURS_41_MINUTES</key>
-		<string>9 timmar 41 minuter</string>
-		<key>9:41</key>
-		<string>9:41</string>
-	</dict>
-</plist>
+"CLOCK_APP" = "Klockappen";
+"ENABLE" = "Aktivera";
+"HIDE_FOR_INACTIVE_ALARMS" = "Göm för inaktiva alarm";
+"FONT_SIZE" = "Textstorlek";
+"TIME_FORMAT" = "Tidsformat";
+"POSITION" = "Position";
+"ABOVE_SWITCH" = "Ovanför knapp";
+"UNDER_SWITCH" = "Under knapp";
+"AFTER_TEXT" = "Efter text";
+"REPLACE_TEXT" = "Ersätt text";
+"LOCK_SCREEN" = "Låsskärm";
+"HIDE_IF" = "Göm om";
+"HIDE_WHEN_MUSIC_IS_PLAYING" = "Göm när musik spelas";
+"NEVER" = "Aldrig";
+"TIME_UNTIL_ALARM" = "Tid till alarm";
+"ALARM_TIME" = "Alarmtid";
+"BOTH" = "Båda";
+"DEVELOPER" = "Utvecklare";
+"VISIT_WEBSITE" = "Besök hemsida";
+"CONTACT" = "Kontakt";
+"DONATE_PAYPAL" = "Donera via PayPal";
+"DONATE_BITCOIN" = "Donera Bitcoin";
+"TRANSLATIONS" = "Översättningar";
+"9H_41M" = "9h 41m";
+"9HRS_41MINS" = "9tim 41min";
+"9_HOURS_41_MINUTES" = "9 timmar 41 minuter";
+"9:41" = "9:41";
+"VIEW_SOURCE_CODE" = "Visa källkod";

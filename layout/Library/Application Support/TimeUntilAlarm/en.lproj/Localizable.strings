@@ -1,42 +1,53 @@
-<plist version="1.0">
-<dict>
-    <key>DAY_SHORT</key>
-    <string>d</string>
-    <key>HOUR_SHORT</key>
-    <string>h</string>
-    <key>MINUTE_SHORT</key>
-    <string>m</string>
-    <key>HOUR_MEDIUM</key>
-    <string>hr</string>
-    <key>HOURS_MEDIUM</key>
-    <string>hrs</string>
-    <key>MINUTE_MEDIUM</key>
-    <string>min</string>
-    <key>MINUTES_MEDIUM</key>
-    <string>mins</string>
-    <key>DAY_FULL</key>
-    <string>day</string>
-    <key>DAYS_FULL</key>
-    <string>days</string>
-    <key>HOUR_FULL</key>
-    <string>hour</string>
-    <key>HOURS_FULL</key>
-    <string>hours</string>
-    <key>MINUTE_FULL</key>
-    <string>minute</string>
-    <key>MINUTES_FULL</key>
-    <string>minutes</string>
-    <key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
-    <string>Your screen is %d points tall</string>
-    <key>YOUR_SCREEN_IS_X_POINTS_WIDE</key>
-    <string>Your screen is %d points wide</string>
-    <key>DONATE_BITCOIN</key>
-    <string>Donate Bitcoin</string>
-    <key>COPY_TO_CLIPBOARD</key>
-    <string>Copy to clipboard</string>
-    <key>DISMISS</key>
-    <string>Dismiss</string>
-    <key>COPIED</key>
-    <string>Copied!</string>
-</dict>
-</plist>
+/* The shortest abbreviation of 'day', used in format: 1d 9h 41m */
+"DAY_SHORT" = "d";
+
+/* The shortest abbreviation of 'hours', used in format: 1d 9h 41m */
+"HOUR_SHORT" = "h";
+
+/* The shortest abbreviation of 'minutes', used in format: 1d 9h 41m */
+"MINUTE_SHORT" = "m";
+
+/* A medium length abbreviation of 'hour', used in format: 1day, 9hrs, 41mins */
+"HOUR_MEDIUM" = "hr";
+
+/* A medium length abbreviation of 'hours' (plural), used in format: 1day, 9hrs, 41mins */
+"HOURS_MEDIUM" = "hrs";
+
+/* A medium length abbreviation of 'minute', used in format: 1day, 9hrs, 41mins */
+"MINUTE_MEDIUM" = "min";
+
+/* A medium length abbreviation of 'minutes' (plural), used in format: 1day, 9hrs, 41mins */
+"MINUTES_MEDIUM" = "mins";
+
+/* Full length 'day', used in format: 1 day 9 hours 41 minutes */
+"DAY_FULL" = "day";
+
+/* Full length 'days' (plural), used in format: 1 day 9 hours 41 minutes */
+"DAYS_FULL" = "days";
+
+/* Full length 'hour', used in format: 1 day 9 hours 41 minutes */
+"HOUR_FULL" = "hour";
+
+/* Full length 'hours' (plural), used in format: 1 day 9 hours 41 minutes */
+"HOURS_FULL" = "hours";
+
+/* Full length 'minute', used in format: 1 day 9 hours 41 minutes */
+"MINUTE_FULL" = "minute";
+
+/* Full length 'minutes' (plural), used in format: 1 day 9 hours 41 minutes */
+"MINUTES_FULL" = "minutes";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_Y_POINTS_TALL" = "Your screen is %d points tall";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_X_POINTS_WIDE" = "Your screen is %d points wide";
+
+"DONATE_BITCOIN" = "Donate Bitcoin";
+"COPY_TO_CLIPBOARD" = "Copy to clipboard";
+
+/* Title of dismiss button on alert */
+"DISMISS" = "Dismiss";
+
+/* Confirmation of 'Copy to clipboard' */
+"COPIED" = "Copied!";

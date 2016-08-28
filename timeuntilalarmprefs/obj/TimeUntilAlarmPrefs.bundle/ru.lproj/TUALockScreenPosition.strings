@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "Позиция экрана блокировки";
+"HORIZONTAL_POSITION" = "Горизонтальное положение";
+"LEFT" = "Слева";
+"RIGHT" = "Справа";
+"MIDDLE" = "Посередине";
+"CUSTOM" = "Настроить";
+"VERTICAL_POSITION" = "Вертикальное положение";
+"TOP" = "Сверху";
+"UNDER_CLOCK" = "Под часами";
+"BOTTOM" = "Внизу";
+"SPECIFY_X_VALUE" = "Настроить положение оси X";
+"SPECIFY_Y_VALUE" = "Настроить положение оси Y";
+"FROM_LEFT" = "Слева";
+"FROM_RIGHT" = "Справа";
+"FROM_TOP" = "Сверху";
+"FROM_BOTTOM" = "Снизу";

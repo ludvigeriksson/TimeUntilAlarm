@@ -6,7 +6,6 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 static NSString *stringFromDate(NSDate *date);
 static NSString *stringFromDifference(int difference, int format);
 static int getCurrentMinute();
-
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 // Enums
@@ -64,6 +63,7 @@ static int hideOnLockScreenIf = 24; // Default to 24 hours
 static BOOL hideOnLockScreenWhenMusicIsPlaying = false;
 static BOOL snoozedAlarmCellIsVisible = NO;
 static NSDate *nextActiveAlarmFireDate = nil;
+static BOOL isUnlocking = NO;
 
 static const int nextAlarmOnLockScreenViewTag = 50;
 static const int nextAlarmOnLockScreenLabelTag = 1;
@@ -92,13 +92,18 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 @interface SBLockScreenViewController : UITableViewController
 - (id)lockScreenView;
+- (id)lockScreenScrollView;
 - (BOOL)isShowingMediaControls;
 - (_Bool)lockScreenIsShowingBulletins;
+
+- (void)prepareForUIUnlock;
 
 - (void)resizeAlarmView:(UIView *)alarmView;
 - (NSString *)nextAlarmLabelText:(NSTimeInterval)difference;
 - (UIView *)createAlarmView;
 - (CGRect)frameForAlarmView:(UIView *)view;
+
+- (void)fadeView:(UIView *)view out:(BOOL)out;
 @end
 
 @interface SBFLockScreenDateView : UIView
@@ -107,18 +112,49 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 %hook SBLockScreenViewController
 
+- (void)prepareForUIUnlock {
+	%orig;
+
+	UIView *lockScreenScrollView = (UIView *)self.lockScreenScrollView;
+	UIView *lockScreenAlarmView = [lockScreenScrollView viewWithTag:nextAlarmOnLockScreenViewTag];
+
+	isUnlocking = YES;
+
+	[UIView animateWithDuration:0.15
+		animations:^{
+			lockScreenAlarmView.alpha = 0;
+		}
+		completion:^(BOOL success){
+			isUnlocking = NO;
+			if (success) {
+				lockScreenAlarmView.hidden = YES;
+			}
+		}
+	];
+}
+
 - (void)viewDidLayoutSubviews {
 	%orig;
 
+	UIView *lockScreenScrollView = (UIView *)self.lockScreenScrollView;
+
 	UIView *lockScreenView = (UIView *)self.lockScreenView;
 	SBFLockScreenDateView *dateView = [lockScreenView valueForKey:@"dateView"];
-	UIView *lockScreenAlarmView = [dateView viewWithTag:nextAlarmOnLockScreenViewTag];
+	UIView *lockScreenAlarmView = [lockScreenScrollView viewWithTag:nextAlarmOnLockScreenViewTag];
 
 	if (enableOnLockScreen) {
+
+		// Hide based on time conditions from Settings
 		int nextActiveAlarmDifference = [nextActiveAlarmFireDate timeIntervalSinceNow];
 		int maximumDifference = hideOnLockScreenIf * 60 * 60;
-		BOOL hide = ((nextActiveAlarmDifference > maximumDifference) && (hideOnLockScreenIf != 0)) ||
-					(hideOnLockScreenWhenMusicIsPlaying && [self isShowingMediaControls]);
+		BOOL hide = ((nextActiveAlarmDifference > maximumDifference) && (hideOnLockScreenIf != 0));
+		// Hide if music is playing
+		hide = hide || (hideOnLockScreenWhenMusicIsPlaying && [self isShowingMediaControls]);
+		// Hide if charging screen is visible
+		BOOL chargingViewControllerVisible = MSHookIvar<BOOL>(self, "_chargingViewControllerVisible");
+		hide = hide || chargingViewControllerVisible;
+		// Hide if unlock animation is in progress
+		hide = hide || isUnlocking;
 
 		if (!snoozedAlarmCellIsVisible && nextActiveAlarmFireDate != nil && !hide) {
 			UILabel *nextAlarmLabel;
@@ -128,12 +164,18 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 				lockScreenAlarmView = [self createAlarmView];
 
 				// Add complete alarm view to date view
-				[dateView addSubview:lockScreenAlarmView];
+				[lockScreenScrollView addSubview:lockScreenAlarmView];
 			}
 
 			nextAlarmLabel = (UILabel *)[lockScreenAlarmView viewWithTag:nextAlarmOnLockScreenLabelTag];
 			nextAlarmImageView = (UIImageView *)[lockScreenAlarmView viewWithTag:nextAlarmOnLockScreenImageViewTag];
-			lockScreenAlarmView.hidden = NO;
+
+			if (lockScreenAlarmView.hidden) {
+				// Fade in
+				[self fadeView:lockScreenAlarmView out:NO];
+			} else {
+				lockScreenAlarmView.hidden = NO;
+			}
 
 			nextAlarmLabel.text = [self nextAlarmLabelText:nextActiveAlarmDifference];
 			nextAlarmLabel.textColor = dateView.textColor;
@@ -144,11 +186,40 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 			lockScreenAlarmView.frame = [self frameForAlarmView:lockScreenAlarmView];
 
 		} else if (lockScreenAlarmView != nil) {
-			lockScreenAlarmView.hidden = YES;
+			if (!lockScreenAlarmView.hidden) {
+				// Should be hidden, fade out
+				[self fadeView:lockScreenAlarmView out:YES];
+			} else {
+				lockScreenAlarmView.hidden = YES;
+			}
 		}
 	} else if (lockScreenAlarmView != nil) {
 		[lockScreenAlarmView removeFromSuperview];
 		lockScreenAlarmView = nil;
+	}
+}
+
+%new
+- (void)fadeView:(UIView *)view out:(BOOL)out {
+	if (out) {
+		[UIView animateWithDuration:0.2
+			animations:^(){
+				view.alpha = 0;
+			}
+			completion:^(BOOL success){
+				if (success) {
+					view.hidden = YES;
+				}
+			}
+		];
+	} else {
+		view.alpha = 0.0;
+		view.hidden = NO;
+		[UIView animateWithDuration:0.2
+			animations:^(){
+				view.alpha = 1.0;
+			}
+		];
 	}
 }
 
@@ -248,17 +319,17 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 	SBFLockScreenDateView *dateView = [lockScreenView valueForKey:@"dateView"];
 
 	if (lockScreenVerticalPosition == VerticalPositionTop) {
-		frame.origin.y = nextAlarmOnLockScreenTopBottomSpacing - dateView.frame.origin.y;
+		frame.origin.y = nextAlarmOnLockScreenTopBottomSpacing;
 	} else if (lockScreenVerticalPosition == VerticalPositionBelowClock) {
 		UIView *dateLabel = MSHookIvar<UIView *>(dateView, "_dateLabel");
-		frame.origin.y = CGRectGetMaxY(dateLabel.frame) + nextAlarmOnLockScreenViewSpacing;
+		frame.origin.y = CGRectGetMaxY([dateView convertRect:dateLabel.frame toView:self.lockScreenScrollView]) + nextAlarmOnLockScreenViewSpacing;
 		if ([self isShowingMediaControls]) {
-			frame.origin.y -= 8;
+			frame.origin.y -= 8; // This moves the label away from music artwork a bit
 		} else if ([self lockScreenIsShowingBulletins]) {
-			frame.origin.y -= 4;
+			frame.origin.y -= 4; // This moves the label away from notifications a bit
 		}
 	} else if (lockScreenVerticalPosition == VerticalPositionBottom) {
-		frame.origin.y = fullscreenHeight - frame.size.height - nextAlarmOnLockScreenTopBottomSpacing - dateView.frame.origin.y;
+		frame.origin.y = fullscreenHeight - frame.size.height - nextAlarmOnLockScreenTopBottomSpacing;
 	} else if (lockScreenVerticalPosition == VerticalPositionCustom) {
 		if (lockScreenVerticalPositionStartingPoint == VerticalStartingPointTop) {
 			frame.origin.y = lockScreenVerticalPositionValue - dateView.frame.origin.y;
@@ -266,6 +337,9 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 			frame.origin.y = fullscreenHeight - frame.size.height - lockScreenVerticalPositionValue - dateView.frame.origin.y;
 		}
 	}
+
+	// The scroll view spans two full pages
+	frame.origin.x += fullscreenWidth;
 
 	return frame;
 }

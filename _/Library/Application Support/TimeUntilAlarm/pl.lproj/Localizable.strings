@@ -1,44 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-<key>DAY_SHORT</key>
-<string>d</string>
-<key>HOUR_SHORT</key>
-<string>g</string>
-<key>MINUTE_SHORT</key>
-<string>m</string>
-<key>HOUR_MEDIUM</key>
-<string>godz</string>
-<key>HOURS_MEDIUM</key>
-<string>godz</string>
-<key>MINUTE_MEDIUM</key>
-<string>min</string>
-<key>MINUTES_MEDIUM</key>
-<string>min</string>
-<key>DAY_FULL</key>
-<string>dzień</string>
-<key>DAYS_FULL</key>
-<string>dni</string>
-<key>HOUR_FULL</key>
-<string>godzina</string>
-<key>HOURS_FULL</key>
-<string>godzin</string>
-<key>MINUTE_FULL</key>
-<string>minuta</string>
-<key>MINUTES_FULL</key>
-<string>minut</string>
-<key>YOUR_SCREEN_IS_Y_POINTS_TALL</key>
-<string>Wysokość ekranu w %d</string>
-<key>YOUR_SCREEN_IS_X_POINTS_WIDE</key>
-<string>Szerokość ekranu w %d</string>
-<key>DONATE_BITCOIN</key>
-<string>Wspomóż Bitcoin</string>
-<key>COPY_TO_CLIPBOARD</key>
-<string>Kopiuj do schowka</string>
-<key>DISMISS</key>
-<string>Odrzuć</string>
-<key>COPIED</key>
-<string>Skopiowano!</string>
-</dict>
-</plist>
+/* The shortest abbreviation of 'day', used in format: 1d 9h 41m */
+"DAY_SHORT" = "d";
+
+/* The shortest abbreviation of 'hours', used in format: 1d 9h 41m */
+"HOUR_SHORT" = "g";
+
+/* The shortest abbreviation of 'minutes', used in format: 1d 9h 41m */
+"MINUTE_SHORT" = "m";
+
+/* A medium length abbreviation of 'hour', used in format: 1day, 9hrs, 41mins */
+"HOUR_MEDIUM" = "godz";
+
+/* A medium length abbreviation of 'hours' (plural), used in format: 1day, 9hrs, 41mins */
+"HOURS_MEDIUM" = "godz";
+
+/* A medium length abbreviation of 'minute', used in format: 1day, 9hrs, 41mins */
+"MINUTE_MEDIUM" = "min";
+
+/* A medium length abbreviation of 'minutes' (plural), used in format: 1day, 9hrs, 41mins */
+"MINUTES_MEDIUM" = "min";
+
+/* Full length 'day', used in format: 1 day 9 hours 41 minutes */
+"DAY_FULL" = "dzień";
+
+/* Full length 'days' (plural), used in format: 1 day 9 hours 41 minutes */
+"DAYS_FULL" = "dni";
+
+/* Full length 'hour', used in format: 1 day 9 hours 41 minutes */
+"HOUR_FULL" = "godzina";
+
+/* Full length 'hours' (plural), used in format: 1 day 9 hours 41 minutes */
+"HOURS_FULL" = "godzin";
+
+/* Full length 'minute', used in format: 1 day 9 hours 41 minutes */
+"MINUTE_FULL" = "minuta";
+
+/* Full length 'minutes' (plural), used in format: 1 day 9 hours 41 minutes */
+"MINUTES_FULL" = "minut";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_Y_POINTS_TALL" = "Wysokość ekranu w %d";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_X_POINTS_WIDE" = "Szerokość ekranu w %d";
+
+"DONATE_BITCOIN" = "Wspomóż Bitcoin";
+"COPY_TO_CLIPBOARD" = "Kopiuj do schowka";
+
+/* Title of dismiss button on alert */
+"DISMISS" = "Odrzuć";
+
+/* Confirmation of 'Copy to clipboard' */
+"COPIED" = "Skopiowano!";

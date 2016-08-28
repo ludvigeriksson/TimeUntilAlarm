@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Many thanks to people who helped translate this tweak.</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+
+		<!-- Arabic -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Arabic</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- English -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>English</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Polish -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Polish</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Russian -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Russian</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Swedish -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Swedish</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+
+		<!-- Help me translate -->
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Help me translate</string>
+			<key>action</key>
+			<string>helpMeTranslate</string>
+			<key>icon</key>
+			<string>WebsiteIcon</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Translations</string>
+</dict>
+</plist>

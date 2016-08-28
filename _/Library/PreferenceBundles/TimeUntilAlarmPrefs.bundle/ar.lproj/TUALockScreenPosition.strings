@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "وضعية شاشة القفل";
+"HORIZONTAL_POSITION" = "الوضع الأفقي";
+"LEFT" = "اليسار";
+"RIGHT" = "اليمين";
+"MIDDLE" = "المنتصف";
+"CUSTOM" = "تخصيص";
+"VERTICAL_POSITION" = "الوضع العمودي";
+"TOP" = "الأعلى";
+"UNDER_CLOCK" = "أسفل الساعة";
+"BOTTOM" = "الأسفل";
+"SPECIFY_X_VALUE" = "حدد النقطة";
+"SPECIFY_Y_VALUE" = "حدد النقطة";
+"FROM_LEFT" = "من اليسار";
+"FROM_RIGHT" = "من اليمين";
+"FROM_TOP" = "من الأعلى";
+"FROM_BOTTOM" = "من الأسفل";
