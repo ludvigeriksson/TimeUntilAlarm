@@ -61,6 +61,7 @@ static int lockScreenTimeFormat = 0;
 static int lockScreenTimeType = TimeTypeTimeUntilAlarm;
 static int hideOnLockScreenIf = 24; // Default to 24 hours
 static BOOL hideOnLockScreenWhenMusicIsPlaying = false;
+static BOOL hideOnLockScreenWhenNavigating = true;
 static BOOL snoozedAlarmCellIsVisible = NO;
 static NSDate *nextActiveAlarmFireDate = nil;
 static BOOL isUnlocking = NO;
@@ -104,6 +105,8 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 - (CGRect)frameForAlarmView:(UIView *)view;
 
 - (void)fadeView:(UIView *)view out:(BOOL)out;
+
+- (id)activeLockScreenPluginController;
 @end
 
 @interface SBFLockScreenDateView : UIView
@@ -155,6 +158,12 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		hide = hide || chargingViewControllerVisible;
 		// Hide if unlock animation is in progress
 		hide = hide || isUnlocking;
+
+		// Hide if navigation is active
+		id plugin = [self activeLockScreenPluginController];
+		if ([plugin isMemberOfClass:NSClassFromString(@"MNLockScreenPluginController")]) {
+			hide = hide || hideOnLockScreenWhenNavigating;
+		}
 
 		if (!snoozedAlarmCellIsVisible && nextActiveAlarmFireDate != nil && !hide) {
 			UILabel *nextAlarmLabel;
@@ -839,6 +848,7 @@ static CFStringRef lockScreenFontSizeKey 			     = CFSTR("TUALockScreenFontSize"
 static CFStringRef lockScreenTimeFormatKey 			     = CFSTR("TUALockScreenTimeFormat");
 static CFStringRef hideOnLockScreenIfKey 			     = CFSTR("TUAHideOnLockScreenIf");
 static CFStringRef hideOnLockScreenWhenMusicIsPlayingKey = CFSTR("TUAHideOnLockScreenWhenMusicIsPlaying");
+static CFStringRef hideOnLockScreenWhenNavigatingKey	 = CFSTR("TUAHideOnLockScreenWhenNavigating");
 static CFStringRef lockScreenTimeTypeKey			     = CFSTR("TUALockScreenTimeType");
 
 static CFStringRef lockScreenHorizontalPositionKey 			    = CFSTR("TUALockScreenHorizontalPosition");
@@ -880,6 +890,9 @@ static void loadPrefs() {
     }
 	if (CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenWhenMusicIsPlayingKey, timeUntilAlarmPrefsKey))) {
         hideOnLockScreenWhenMusicIsPlaying = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenWhenMusicIsPlayingKey, timeUntilAlarmPrefsKey)) boolValue];
+    }
+	if (CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenWhenNavigatingKey, timeUntilAlarmPrefsKey))) {
+        hideOnLockScreenWhenNavigating = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(hideOnLockScreenWhenNavigatingKey, timeUntilAlarmPrefsKey)) boolValue];
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeTypeKey, timeUntilAlarmPrefsKey))) {
         lockScreenTimeType = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeTypeKey, timeUntilAlarmPrefsKey)) intValue];

@@ -1,3 +1,4 @@
+"DONATE_BITCOIN" = "Пожертвовать биткоин";
 "CLOCK_APP" = "Часы";
 "ENABLE" = "Включить";
 "HIDE_FOR_INACTIVE_ALARMS" = "Скрыть неактивные будильники";
@@ -16,13 +17,13 @@
 "ALARM_TIME" = "Время будильника";
 "BOTH" = "Оба варианта";
 "DEVELOPER" = "Разработчик";
-"VISIT_WEBSITE" = "Посетить сайт";
 "CONTACT" = "Обратная связь";
 "DONATE_PAYPAL" = "Пожертвовать через PayPal";
-"DONATE_BITCOIN" = "Пожертвовать биткоин";
-"TRANSLATIONS" = "Переводы";
 "9H_41M" = "9ч 41м";
 "9HRS_41MINS" = "9чсв 41мин";
 "9_HOURS_41_MINUTES" = "9 часов 41 минута";
 "9:41" = "9:41";
+"VISIT_WEBSITE" = "Посетить сайт";
+"TRANSLATIONS" = "Переводы";
 "VIEW_SOURCE_CODE" = "Посмотреть исходный код";
+"HIDE_WHEN_NAVIGATING" = "Hide when navigating";

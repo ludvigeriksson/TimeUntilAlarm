@@ -26,12 +26,42 @@
 			<string>translatorForLanguage:</string>
 		</dict>
 
+		<!-- Chinese Simplified -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Chinese Simplified</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Chinese Traditional -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Chinese Traditional</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
 		<!-- English -->
 		<dict>
 			<key>cell</key>
 			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>English</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- German -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>German</string>
 			<key>get</key>
 			<string>translatorForLanguage:</string>
 		</dict>
@@ -62,6 +92,16 @@
 			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>Swedish</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Ukrainian -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Ukrainian</string>
 			<key>get</key>
 			<string>translatorForLanguage:</string>
 		</dict>

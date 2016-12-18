@@ -5,11 +5,15 @@ static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Applica
 #define BITCOIN_ADDRESS @"18Wf4XCPSfd1NVkbhoLeu75CpPmRCAq4rL"
 
 static const NSDictionary *TUATranslators = @{
-	@"English" : @"Ludvig Eriksson",
-	@"Swedish" : @"Ludvig Eriksson",
-	@"Polish"  : @"Daniel Kowalski",
-	@"Arabic"  : @"Tariq",
-	@"Russian" : @"Murphy Pendleton"
+	@"Arabic"   		   	: @"Tariq Alshoqiran",
+	@"Chinese Simplified"	: @"chgvara",
+	@"Chinese Traditional" 	: @"visioncan",
+	@"English"  		   	: @"Ludvig Eriksson",
+	@"German"				: @"isa.022",
+	@"Polish"  			 	: @"Daniel Kowalski",
+	@"Russian"  			: @"Murphy Pendleton",
+	@"Swedish"  			: @"Ludvig Eriksson",
+	@"Ukrainian" 			: @"Dmytro Gumenyuk"
 };
 
 #import <Preferences/Preferences.h>
@@ -45,7 +49,7 @@ static const NSDictionary *TUATranslators = @{
 }
 
 - (void)donatePayPal {
-	NSURL *url = [NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ludvigeriksson%40icloud%2ecom&lc=US&item_name=Donation%20to%20Ludvig%20Eriksson&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest"];
+	NSURL *url = [NSURL URLWithString:@"https://www.paypal.me/ludvigeriksson"];
 	[[UIApplication sharedApplication] openURL:url];
 }
 

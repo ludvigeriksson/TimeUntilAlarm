@@ -1,3 +1,4 @@
+"DONATE_BITCOIN" = "Donate Bitcoin";
 "CLOCK_APP" = "Clock app";
 "ENABLE" = "Enable";
 "HIDE_FOR_INACTIVE_ALARMS" = "Hide for inactive alarms";
@@ -16,13 +17,13 @@
 "ALARM_TIME" = "Alarm time";
 "BOTH" = "Both";
 "DEVELOPER" = "Developer";
-"VISIT_WEBSITE" = "Visit website";
 "CONTACT" = "Contact";
 "DONATE_PAYPAL" = "Donate via PayPal";
-"DONATE_BITCOIN" = "Donate Bitcoin";
-"TRANSLATIONS" = "Translations";
 "9H_41M" = "9h 41m";
 "9HRS_41MINS" = "9hrs 41mins";
 "9_HOURS_41_MINUTES" = "9 hours 41 minutes";
 "9:41" = "9:41";
+"VISIT_WEBSITE" = "Visit website";
+"TRANSLATIONS" = "Translations";
 "VIEW_SOURCE_CODE" = "View source code";
+"HIDE_WHEN_NAVIGATING" = "Hide when navigating";

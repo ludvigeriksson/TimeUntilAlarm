@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "锁定屏幕位置";
+"HORIZONTAL_POSITION" = "水平位置";
+"LEFT" = "左";
+"RIGHT" = "右";
+"MIDDLE" = "中";
+"CUSTOM" = "自定义";
+"VERTICAL_POSITION" = "垂直位置";
+"TOP" = "顶部";
+"UNDER_CLOCK" = "在时钟下方";
+"BOTTOM" = "底部";
+"SPECIFY_X_VALUE" = "自定义X坐标：";
+"SPECIFY_Y_VALUE" = "自定义y坐标";
+"FROM_LEFT" = "从左侧";
+"FROM_RIGHT" = "从右侧";
+"FROM_TOP" = "从顶部";
+"FROM_BOTTOM" = "从底部";

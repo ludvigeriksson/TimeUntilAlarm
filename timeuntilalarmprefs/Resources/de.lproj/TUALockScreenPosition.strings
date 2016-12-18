@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "Position des Sperrbildschirms";
+"HORIZONTAL_POSITION" = "Horizontale Position ";
+"LEFT" = "Links";
+"RIGHT" = "Rechts";
+"MIDDLE" = "Mitte";
+"CUSTOM" = "Benutzerdefiniert";
+"VERTICAL_POSITION" = "Vertikale Position ";
+"TOP" = "Oben";
+"UNDER_CLOCK" = "Unter Uhr";
+"BOTTOM" = "Unten";
+"SPECIFY_X_VALUE" = "X-Wert definieren";
+"SPECIFY_Y_VALUE" = "Y-Wert definieren";
+"FROM_LEFT" = "Von links";
+"FROM_RIGHT" = "Von rechts";
+"FROM_TOP" = "Von oben";
+"FROM_BOTTOM" = "Von unten";

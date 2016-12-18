@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "鎖定螢幕位置";
+"HORIZONTAL_POSITION" = "水平位置";
+"LEFT" = "左";
+"RIGHT" = "右";
+"MIDDLE" = "中間";
+"CUSTOM" = "自訂";
+"VERTICAL_POSITION" = "垂直位置";
+"TOP" = "頂部";
+"UNDER_CLOCK" = "時間下方";
+"BOTTOM" = "底部";
+"SPECIFY_X_VALUE" = "X 軸偏移值";
+"SPECIFY_Y_VALUE" = "Y 軸偏移值";
+"FROM_LEFT" = "從左邊算起";
+"FROM_RIGHT" = "從右邊算起";
+"FROM_TOP" = "從頂部算起";
+"FROM_BOTTOM" = "從底部算起";

@@ -1,3 +1,4 @@
+"DONATE_BITCOIN" = "تبرع بواسطة Bitcoin";
 "CLOCK_APP" = "تطبيق الساعة";
 "ENABLE" = "تمكين";
 "HIDE_FOR_INACTIVE_ALARMS" = "إخفاء للتنبيهات الغير مفعلة";
@@ -16,13 +17,13 @@
 "ALARM_TIME" = "وقت التنبيه";
 "BOTH" = "الكل";
 "DEVELOPER" = "المطور";
-"VISIT_WEBSITE" = "زوروا موقعنا على الإنترنت";
 "CONTACT" = "وسيلة الاتصال";
 "DONATE_PAYPAL" = "تبرع بواسطة PayPal";
-"DONATE_BITCOIN" = "تبرع بواسطة Bitcoin";
-"TRANSLATIONS" = "الترجمة";
 "9H_41M" = "9 س 41 د";
 "9HRS_41MINS" = "9 سع 41 دق";
 "9_HOURS_41_MINUTES" = "9 ساعات 41 دقيقة";
 "9:41" = "9:41";
+"VISIT_WEBSITE" = "زوروا موقعنا على الإنترنت";
+"TRANSLATIONS" = "الترجمة";
 "VIEW_SOURCE_CODE" = "View source code";
+"HIDE_WHEN_NAVIGATING" = "Hide when navigating";

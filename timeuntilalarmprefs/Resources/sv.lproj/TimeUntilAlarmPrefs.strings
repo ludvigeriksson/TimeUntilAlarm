@@ -1,3 +1,4 @@
+"DONATE_BITCOIN" = "Donera Bitcoin";
 "CLOCK_APP" = "Klockappen";
 "ENABLE" = "Aktivera";
 "HIDE_FOR_INACTIVE_ALARMS" = "Göm för inaktiva alarm";
@@ -16,13 +17,13 @@
 "ALARM_TIME" = "Alarmtid";
 "BOTH" = "Båda";
 "DEVELOPER" = "Utvecklare";
-"VISIT_WEBSITE" = "Besök hemsida";
 "CONTACT" = "Kontakt";
 "DONATE_PAYPAL" = "Donera via PayPal";
-"DONATE_BITCOIN" = "Donera Bitcoin";
-"TRANSLATIONS" = "Översättningar";
 "9H_41M" = "9h 41m";
 "9HRS_41MINS" = "9tim 41min";
 "9_HOURS_41_MINUTES" = "9 timmar 41 minuter";
 "9:41" = "9:41";
+"VISIT_WEBSITE" = "Besök hemsida";
+"TRANSLATIONS" = "Översättningar";
 "VIEW_SOURCE_CODE" = "Visa källkod";
+"HIDE_WHEN_NAVIGATING" = "Göm vid navigation";

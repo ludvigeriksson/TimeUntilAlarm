@@ -1,3 +1,4 @@
+"DONATE_BITCOIN" = "Wspomóż Bitcoin";
 "CLOCK_APP" = "Aplikacja zegar";
 "ENABLE" = "Włącz";
 "HIDE_FOR_INACTIVE_ALARMS" = "Ukryj dla nie aktywnych alarmów";
@@ -16,13 +17,13 @@
 "ALARM_TIME" = "Czas alarmu";
 "BOTH" = "Oba";
 "DEVELOPER" = "Programista";
-"VISIT_WEBSITE" = "Odwiedź Stronę";
 "CONTACT" = "Kontakt";
 "DONATE_PAYPAL" = "Wspomóż przez PayPal";
-"DONATE_BITCOIN" = "Wspomóż Bitcoin";
-"TRANSLATIONS" = "Tłumaczenia";
 "9H_41M" = "9g 41m";
 "9HRS_41MINS" = "9godz 41 min";
 "9_HOURS_41_MINUTES" = "9 godzin 41 minut";
 "9:41" = "9:41";
+"VISIT_WEBSITE" = "Odwiedź Stronę";
+"TRANSLATIONS" = "Tłumaczenia";
 "VIEW_SOURCE_CODE" = "Kod źródłowy";
+"HIDE_WHEN_NAVIGATING" = "Hide when navigating";
