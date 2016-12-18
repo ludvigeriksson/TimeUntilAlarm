@@ -3,6 +3,7 @@
 "ENABLE" = "تمكين";
 "HIDE_FOR_INACTIVE_ALARMS" = "إخفاء للتنبيهات الغير مفعلة";
 "FONT_SIZE" = "حجم الخط";
+"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "تنسيق الوقت";
 "POSITION" = "إظهار الوقت المتبقي";
 "ABOVE_SWITCH" = "فوق قفل التنبيه";

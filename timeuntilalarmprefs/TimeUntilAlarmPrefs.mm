@@ -495,4 +495,24 @@ static NSCharacterSet *allowedCharacters = [NSCharacterSet characterSetWithChara
 
 @end
 
+@interface TUALockScreenFontColorListController : PSListController
+@end
+
+@implementation TUALockScreenFontColorListController
+
+- (id)specifiers {
+    if(_specifiers == nil) {
+        _specifiers = [self loadSpecifiersFromPlistName:@"TUALockScreenFontColor" target:self];
+    }
+    return _specifiers;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+	[self clearCache];
+	[self reload];
+	[super viewWillAppear:animated];
+}
+
+@end
+
 // vim:ft=objc

@@ -1,3 +1,5 @@
+#import "libcolorpicker.h"
+
 // Bundle
 static const NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/TimeUntilAlarm"];
 #define LOCALIZED(str) [tweakBundle localizedStringForKey:str value:@"" table:nil]
@@ -57,6 +59,8 @@ static int clockAppPosition = ClockAppPositionAboveSwitch;
 // Lockscreen properties
 static BOOL enableOnLockScreen = NO;
 static int lockScreenFontSize = 17;
+static BOOL lockScreenFontColorMatchClock = YES;
+static NSString *lockScreenFontColorString = nil;
 static int lockScreenTimeFormat = 0;
 static int lockScreenTimeType = TimeTypeTimeUntilAlarm;
 static int hideOnLockScreenIf = 24; // Default to 24 hours
@@ -107,6 +111,8 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 - (void)fadeView:(UIView *)view out:(BOOL)out;
 
 - (id)activeLockScreenPluginController;
+
+
 @end
 
 @interface SBFLockScreenDateView : UIView
@@ -187,8 +193,13 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 			}
 
 			nextAlarmLabel.text = [self nextAlarmLabelText:nextActiveAlarmDifference];
-			nextAlarmLabel.textColor = dateView.textColor;
-			nextAlarmImageView.tintColor = dateView.textColor;
+			if (lockScreenFontColorMatchClock || lockScreenFontColorString == nil) {
+				nextAlarmLabel.textColor = dateView.textColor;
+				nextAlarmImageView.tintColor = dateView.textColor;
+			} else {
+				nextAlarmLabel.textColor = LCPParseColorString(lockScreenFontColorString, @"#000000");
+				nextAlarmImageView.tintColor = LCPParseColorString(lockScreenFontColorString, @"#000000");
+			}
 
 			[self resizeAlarmView:lockScreenAlarmView];
 
@@ -845,6 +856,8 @@ static CFStringRef clockAppPositionKey 			= CFSTR("TUAClockAppPosition");
 
 static CFStringRef enableOnLockScreenKey			     = CFSTR("TUAShowNextActiveAlarmOnLockScreen"); // Was called this previously, remains unchanged for compatability
 static CFStringRef lockScreenFontSizeKey 			     = CFSTR("TUALockScreenFontSize");
+static CFStringRef lockScreenFontColorKey 			     = CFSTR("TUALockScreenFontColor");
+static CFStringRef lockScreenFontColorMatchClockKey	     = CFSTR("TUALockScreenFontColorMatchClock");
 static CFStringRef lockScreenTimeFormatKey 			     = CFSTR("TUALockScreenTimeFormat");
 static CFStringRef hideOnLockScreenIfKey 			     = CFSTR("TUAHideOnLockScreenIf");
 static CFStringRef hideOnLockScreenWhenMusicIsPlayingKey = CFSTR("TUAHideOnLockScreenWhenMusicIsPlaying");
@@ -881,6 +894,12 @@ static void loadPrefs() {
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontSizeKey, timeUntilAlarmPrefsKey))) {
         lockScreenFontSize = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontSizeKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+	if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontColorMatchClockKey, timeUntilAlarmPrefsKey))) {
+        lockScreenFontColorMatchClock = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontColorMatchClockKey, timeUntilAlarmPrefsKey)) boolValue];
+    }
+	if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontColorKey, timeUntilAlarmPrefsKey))) {
+        lockScreenFontColorString = (id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenFontColorKey, timeUntilAlarmPrefsKey));
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeFormatKey, timeUntilAlarmPrefsKey))) {
         lockScreenTimeFormat = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(lockScreenTimeFormatKey, timeUntilAlarmPrefsKey)) intValue];

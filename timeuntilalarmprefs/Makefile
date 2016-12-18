@@ -8,6 +8,7 @@ TimeUntilAlarmPrefs_FILES = TimeUntilAlarmPrefs.mm
 TimeUntilAlarmPrefs_INSTALL_PATH = /Library/PreferenceBundles
 TimeUntilAlarmPrefs_FRAMEWORKS = UIKit CoreGraphics
 TimeUntilAlarmPrefs_PRIVATE_FRAMEWORKS = Preferences
+TimeUntilAlarmPrefs_LIBRARIES = colorpicker
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 

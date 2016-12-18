@@ -3,6 +3,7 @@
 "ENABLE" = "Увімкнути";
 "HIDE_FOR_INACTIVE_ALARMS" = "Приховати неактивні будильники";
 "FONT_SIZE" = "Розмір шрифту";
+"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "Формат часу";
 "POSITION" = "Положення";
 "ABOVE_SWITCH" = "Над перемикачем";

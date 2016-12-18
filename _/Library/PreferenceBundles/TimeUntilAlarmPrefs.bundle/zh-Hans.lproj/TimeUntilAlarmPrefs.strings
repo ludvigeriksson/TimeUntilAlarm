@@ -3,6 +3,7 @@
 "ENABLE" = "启用";
 "HIDE_FOR_INACTIVE_ALARMS" = "未启用闹钟禁用";
 "FONT_SIZE" = "字体大小";
+"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "时间格式";
 "POSITION" = "位置";
 "ABOVE_SWITCH" = "在开关上方";

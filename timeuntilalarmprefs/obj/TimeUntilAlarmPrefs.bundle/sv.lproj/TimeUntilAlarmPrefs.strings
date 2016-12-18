@@ -3,6 +3,7 @@
 "ENABLE" = "Aktivera";
 "HIDE_FOR_INACTIVE_ALARMS" = "Göm för inaktiva alarm";
 "FONT_SIZE" = "Textstorlek";
+"FONT_COLOR" = "Textfärg";
 "TIME_FORMAT" = "Tidsformat";
 "POSITION" = "Position";
 "ABOVE_SWITCH" = "Ovanför knapp";

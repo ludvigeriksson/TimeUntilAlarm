@@ -3,6 +3,7 @@
 "ENABLE" = "啟用";
 "HIDE_FOR_INACTIVE_ALARMS" = "在關閉的鬧鐘隱藏";
 "FONT_SIZE" = "文字大小";
+"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "時間格式";
 "POSITION" = "位置";
 "ABOVE_SWITCH" = "在開關上方";

@@ -11,6 +11,7 @@ TimeUntilAlarm_FILES = Tweak.xm
 
 TimeUntilAlarm_FRAMEWORKS = UIKit CoreGraphics
 TimeUntilAlarm_PRIVATE_FRAMEWORKS = MobileTimer
+TimeUntilAlarm_LIBRARIES = colorpicker
 
 TimeUntilAlarm_CODESIGN_FLAGS=-Sentitlements.xml
 

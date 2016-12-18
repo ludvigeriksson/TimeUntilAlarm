@@ -3,6 +3,7 @@
 "ENABLE" = "Włącz";
 "HIDE_FOR_INACTIVE_ALARMS" = "Ukryj dla nie aktywnych alarmów";
 "FONT_SIZE" = "Wielkość czcionki";
+"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "Format czasu";
 "POSITION" = "Pozycja";
 "ABOVE_SWITCH" = "Nad przełącznikiem";
