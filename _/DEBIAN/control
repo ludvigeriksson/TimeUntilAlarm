@@ -1,10 +1,10 @@
 Package: com.ludvigeriksson.timeuntilalarm
 Name: TimeUntilAlarm
-Depends: mobilesubstrate
+Depends: mobilesubstrate, org.thebigboss.libcolorpicker
 Architecture: iphoneos-arm
 Description: Shows the time remaining until the alarms go off
 Maintainer: Ludvig Eriksson
 Author: Ludvig Eriksson
 Section: Tweaks
-Version: 1.1.11~beta2
+Version: 1.1.11~beta3
 Installed-Size: 888
