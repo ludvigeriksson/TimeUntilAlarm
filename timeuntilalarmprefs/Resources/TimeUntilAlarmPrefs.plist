@@ -110,6 +110,16 @@
 			<string>com.ludvigeriksson.timeuntilalarmprefs/settingschanged</string>
 		</dict>
 
+		<!-- Font color -->
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>FONT_COLOR</string>
+			<key>detail</key>
+			<string>TUAClockAppFontColorListController</string>
+		</dict>
+
 		<!-- Time format -->
 		<dict>
 			<key>cell</key>

@@ -47,6 +47,8 @@ typedef NS_ENUM(int, VerticalStartingPoint) {
 static BOOL enableInClockApp = YES;
 static BOOL hideForInactiveAlarms = NO;
 static int clockAppFontSize = 17;
+static BOOL clockAppFontColorMatchClock = YES;
+static NSString *clockAppFontColorString = nil;
 static int clockAppTimeFormat = 0;
 static const int clockAppLabelTag = 50;
 static const int clockAppHiddenLabelTag = 51;
@@ -513,10 +515,14 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 
 	%orig;
 
-	// Set the color to match the time label's color
-	// (must be set after %orig so that timeLabel is updated)
-	UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
-	label.textColor = timeLabel.textColor;
+	if (clockAppFontColorMatchClock || clockAppFontColorString == nil) {
+		// Set the color to match the time label's color
+		// (must be set after %orig so that timeLabel is updated)
+		UILabel *timeLabel = MSHookIvar<UILabel *>(alarmView, "_timeLabel");
+		label.textColor = timeLabel.textColor;
+	} else {
+		label.textColor = LCPParseColorString(clockAppFontColorString, @"#000000");
+	}
 }
 
 - (void)layoutSubviews {
@@ -552,7 +558,7 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 		case ClockAppPositionAfterText:
 		case ClockAppPositionReplaceText:
 			// The time is placed in the existing text label instead
-			// This occurs in setName:andRepeatText:textColor: above
+			// This occurs in setName:andRepeatText:textColor: below
 			frame = CGRectZero;
 			break;
 		default:
@@ -578,6 +584,9 @@ static int lockScreenVerticalPositionStartingPoint = VerticalStartingPointTop;
 				arg1 = hiddenLabel.text;
 			} else if (clockAppPosition == ClockAppPositionAfterText) {
 				arg1 = [arg1 stringByAppendingFormat:@", %@", hiddenLabel.text];
+			}
+			if (!clockAppFontColorMatchClock && clockAppFontColorString != nil) {
+				arg3 = LCPParseColorString(clockAppFontColorString, @"#000000");
 			}
 		}
 	}
@@ -848,11 +857,13 @@ static NSString *stringFromDate(NSDate* date) {
 static CFStringRef settingsChangedNotification = CFSTR("com.ludvigeriksson.timeuntilalarmprefs/settingschanged");
 static CFStringRef timeUntilAlarmPrefsKey 	   = CFSTR("com.ludvigeriksson.timeuntilalarmprefs");
 
-static CFStringRef enableInClockAppKey 			= CFSTR("TUAEnableInClockApp");
-static CFStringRef hideForInactiveAlarmsKey 	= CFSTR("TUAEnableForActiveAlarmsOnly"); // Was called this previously, remains unchanged for compatability
-static CFStringRef clockAppFontSizeKey 			= CFSTR("TUAClockAppFontSize");
-static CFStringRef clockAppTimeFormatKey 		= CFSTR("TUAClockAppTimeFormat");
-static CFStringRef clockAppPositionKey 			= CFSTR("TUAClockAppPosition");
+static CFStringRef enableInClockAppKey 				= CFSTR("TUAEnableInClockApp");
+static CFStringRef hideForInactiveAlarmsKey 		= CFSTR("TUAEnableForActiveAlarmsOnly"); // Was called this previously, remains unchanged for compatability
+static CFStringRef clockAppFontSizeKey 				= CFSTR("TUAClockAppFontSize");
+static CFStringRef clockAppFontColorKey 			= CFSTR("TUAClockAppFontColor");
+static CFStringRef clockAppFontColorMatchClockKey	= CFSTR("TUAClockAppFontColorMatchClock");
+static CFStringRef clockAppTimeFormatKey 			= CFSTR("TUAClockAppTimeFormat");
+static CFStringRef clockAppPositionKey 				= CFSTR("TUAClockAppPosition");
 
 static CFStringRef enableOnLockScreenKey			     = CFSTR("TUAShowNextActiveAlarmOnLockScreen"); // Was called this previously, remains unchanged for compatability
 static CFStringRef lockScreenFontSizeKey 			     = CFSTR("TUALockScreenFontSize");
@@ -881,6 +892,12 @@ static void loadPrefs() {
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey))) {
         clockAppFontSize = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontSizeKey, timeUntilAlarmPrefsKey)) intValue];
+    }
+	if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontColorMatchClockKey, timeUntilAlarmPrefsKey))) {
+        clockAppFontColorMatchClock = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontColorMatchClockKey, timeUntilAlarmPrefsKey)) boolValue];
+    }
+	if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontColorKey, timeUntilAlarmPrefsKey))) {
+        clockAppFontColorString = (id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppFontColorKey, timeUntilAlarmPrefsKey));
     }
     if (CFBridgingRelease(CFPreferencesCopyAppValue(clockAppTimeFormatKey, timeUntilAlarmPrefsKey))) {
         clockAppTimeFormat = [(id)CFBridgingRelease(CFPreferencesCopyAppValue(clockAppTimeFormatKey, timeUntilAlarmPrefsKey)) intValue];

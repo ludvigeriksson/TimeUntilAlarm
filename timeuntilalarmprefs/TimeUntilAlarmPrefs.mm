@@ -515,4 +515,24 @@ static NSCharacterSet *allowedCharacters = [NSCharacterSet characterSetWithChara
 
 @end
 
+@interface TUAClockAppFontColorListController : PSListController
+@end
+
+@implementation TUAClockAppFontColorListController
+
+- (id)specifiers {
+    if(_specifiers == nil) {
+        _specifiers = [self loadSpecifiersFromPlistName:@"TUAClockAppFontColor" target:self];
+    }
+    return _specifiers;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+	[self clearCache];
+	[self reload];
+	[super viewWillAppear:animated];
+}
+
+@end
+
 // vim:ft=objc
