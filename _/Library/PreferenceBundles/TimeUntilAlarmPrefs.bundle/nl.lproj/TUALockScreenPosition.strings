@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "Toegangsscherm positie";
+"HORIZONTAL_POSITION" = "Horizontale positie";
+"LEFT" = "Links";
+"RIGHT" = "Rechts";
+"MIDDLE" = "Midden";
+"CUSTOM" = "Aangepast";
+"VERTICAL_POSITION" = "Verticale positie";
+"TOP" = "Boven";
+"UNDER_CLOCK" = "Onder klok";
+"BOTTOM" = "Beneden";
+"SPECIFY_X_VALUE" = "Geef de X-waarde";
+"SPECIFY_Y_VALUE" = "Geef de Y-waarde";
+"FROM_LEFT" = "Van links";
+"FROM_RIGHT" = "Van rechts";
+"FROM_TOP" = "Van boven";
+"FROM_BOTTOM" = "Van beneden";

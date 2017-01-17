@@ -1,0 +1,53 @@
+/* The shortest abbreviation of 'day', used in format: 1d 9h 41m */
+"DAY_SHORT" = "d";
+
+/* The shortest abbreviation of 'hours', used in format: 1d 9h 41m */
+"HOUR_SHORT" = "u";
+
+/* The shortest abbreviation of 'minutes', used in format: 1d 9h 41m */
+"MINUTE_SHORT" = "m";
+
+/* A medium length abbreviation of 'hour', used in format: 1day, 9hrs, 41mins */
+"HOUR_MEDIUM" = "uur";
+
+/* A medium length abbreviation of 'hours' (plural), used in format: 1day, 9hrs, 41mins */
+"HOURS_MEDIUM" = "uur";
+
+/* A medium length abbreviation of 'minute', used in format: 1day, 9hrs, 41mins */
+"MINUTE_MEDIUM" = "min";
+
+/* A medium length abbreviation of 'minutes' (plural), used in format: 1day, 9hrs, 41mins */
+"MINUTES_MEDIUM" = "min";
+
+/* Full length 'day', used in format: 1 day 9 hours 41 minutes */
+"DAY_FULL" = "dag";
+
+/* Full length 'days' (plural), used in format: 1 day 9 hours 41 minutes */
+"DAYS_FULL" = "dagen";
+
+/* Full length 'hour', used in format: 1 day 9 hours 41 minutes */
+"HOUR_FULL" = "uur";
+
+/* Full length 'hours' (plural), used in format: 1 day 9 hours 41 minutes */
+"HOURS_FULL" = "uur";
+
+/* Full length 'minute', used in format: 1 day 9 hours 41 minutes */
+"MINUTE_FULL" = "minuut";
+
+/* Full length 'minutes' (plural), used in format: 1 day 9 hours 41 minutes */
+"MINUTES_FULL" = "minuten";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_Y_POINTS_TALL" = "Je scherm is %d punten lang";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_X_POINTS_WIDE" = "Je scherm is %d punten breed";
+
+"DONATE_BITCOIN" = "Doneer Bitcoin";
+"COPY_TO_CLIPBOARD" = "Kopieer naar klembord";
+
+/* Title of dismiss button on alert */
+"DISMISS" = "Weiger";
+
+/* Confirmation of 'Copy to clipboard' */
+"COPIED" = "Gekopieerd!";

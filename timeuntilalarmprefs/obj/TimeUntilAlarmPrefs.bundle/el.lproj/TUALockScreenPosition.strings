@@ -1,0 +1,16 @@
+"LOCKSCREEN_POSITION" = "Θέση στην οθόνη κλειδώματος";
+"HORIZONTAL_POSITION" = "Οριζόντια θέση";
+"LEFT" = "Αριστερά";
+"RIGHT" = "Δεξιά";
+"MIDDLE" = "Κέντρο";
+"CUSTOM" = "Προσαρμοσμένο";
+"VERTICAL_POSITION" = "Κάθετη θέση";
+"TOP" = "Κορυφή";
+"UNDER_CLOCK" = "Κάτω από το ρολόι";
+"BOTTOM" = "Κάτω μέρος";
+"SPECIFY_X_VALUE" = "Καθορίστε Χ τιμή:";
+"SPECIFY_Y_VALUE" = "Καθορίστε Υ τιμή:";
+"FROM_LEFT" = "Από αριστερά";
+"FROM_RIGHT" = "Από δεξιά";
+"FROM_TOP" = "Από πάνω";
+"FROM_BOTTOM" = "Από κάτω";

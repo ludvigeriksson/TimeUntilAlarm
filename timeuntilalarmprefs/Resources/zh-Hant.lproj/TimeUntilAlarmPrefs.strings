@@ -3,7 +3,6 @@
 "ENABLE" = "啟用";
 "HIDE_FOR_INACTIVE_ALARMS" = "在關閉的鬧鐘隱藏";
 "FONT_SIZE" = "文字大小";
-"FONT_COLOR" = "Font color";
 "TIME_FORMAT" = "時間格式";
 "POSITION" = "位置";
 "ABOVE_SWITCH" = "在開關上方";
@@ -27,4 +26,5 @@
 "VISIT_WEBSITE" = "瀏覽網站";
 "TRANSLATIONS" = "翻譯";
 "VIEW_SOURCE_CODE" = "觀看原始碼";
-"HIDE_WHEN_NAVIGATING" = "Hide when navigating";
+"HIDE_WHEN_NAVIGATING" = "當使用導航時隱藏";
+"FONT_COLOR" = "文字顏色";

@@ -46,6 +46,16 @@
 			<string>translatorForLanguage:</string>
 		</dict>
 
+		<!-- Dutch -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Dutch</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
 		<!-- English -->
 		<dict>
 			<key>cell</key>
@@ -62,6 +72,16 @@
 			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>German</string>
+			<key>get</key>
+			<string>translatorForLanguage:</string>
+		</dict>
+
+		<!-- Greek -->
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>Greek</string>
 			<key>get</key>
 			<string>translatorForLanguage:</string>
 		</dict>

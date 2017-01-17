@@ -1,0 +1,53 @@
+/* The shortest abbreviation of 'day', used in format: 1d 9h 41m */
+"DAY_SHORT" = "μέρα";
+
+/* The shortest abbreviation of 'hours', used in format: 1d 9h 41m */
+"HOUR_SHORT" = "ώρες";
+
+/* The shortest abbreviation of 'minutes', used in format: 1d 9h 41m */
+"MINUTE_SHORT" = "λεπτά";
+
+/* A medium length abbreviation of 'hour', used in format: 1day, 9hrs, 41mins */
+"HOUR_MEDIUM" = "ώρα";
+
+/* A medium length abbreviation of 'hours' (plural), used in format: 1day, 9hrs, 41mins */
+"HOURS_MEDIUM" = "ώρες";
+
+/* A medium length abbreviation of 'minute', used in format: 1day, 9hrs, 41mins */
+"MINUTE_MEDIUM" = "λεπτό";
+
+/* A medium length abbreviation of 'minutes' (plural), used in format: 1day, 9hrs, 41mins */
+"MINUTES_MEDIUM" = "λεπτά";
+
+/* Full length 'day', used in format: 1 day 9 hours 41 minutes */
+"DAY_FULL" = "μέρα";
+
+/* Full length 'days' (plural), used in format: 1 day 9 hours 41 minutes */
+"DAYS_FULL" = "μέρες";
+
+/* Full length 'hour', used in format: 1 day 9 hours 41 minutes */
+"HOUR_FULL" = "ώρα";
+
+/* Full length 'hours' (plural), used in format: 1 day 9 hours 41 minutes */
+"HOURS_FULL" = "ώρες";
+
+/* Full length 'minute', used in format: 1 day 9 hours 41 minutes */
+"MINUTE_FULL" = "λεπτό";
+
+/* Full length 'minutes' (plural), used in format: 1 day 9 hours 41 minutes */
+"MINUTES_FULL" = "λεπτά";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_Y_POINTS_TALL" = "Η οθόνη είναι %d πόντους ψηλά";
+
+/* %d is the actual integer value, points is the unit. */
+"YOUR_SCREEN_IS_X_POINTS_WIDE" = "Η οθόνη είναι %d πόντους πλατιά";
+
+"DONATE_BITCOIN" = "Δωρεά Bitcoin";
+"COPY_TO_CLIPBOARD" = "Αντιγραφή στο πρόχειρο";
+
+/* Title of dismiss button on alert */
+"DISMISS" = "Απόρριψη";
+
+/* Confirmation of 'Copy to clipboard' */
+"COPIED" = "Αντιγράφηκε!";
